@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import Root from "../Layout/Root";
 import Home from "../Pages/Home";
-import PetsSupplies from "../Pages/PetsSupplies";
+import PetsSupplies from "../Pages/PetsSupplies/PetsSupplies";
 import PrivateRoute from "./PrivateRoute";
 import AddListing from "../Pages/AddListing";
 import MyListings from "../Pages/MyListings";
