@@ -1,16 +1,23 @@
-import React, { use } from 'react';
+import React, { useState, useEffect } from 'react';
 import StoreCard from '../Pages/StoreCard';
 
-const RecentStore = ({recentStoresPromise}) => {
-    const stores = use(recentStoresPromise);
-    console.log(stores)
-    return (
-        <div>
-            {
-                stores.map(store => <StoreCard key={store._id} store={store}></StoreCard>)
-            }
-        </div>
-    );
+const RecentStore = () => {
+  const [stores, setStores] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/recent-stores')
+      .then(res => res.json())
+      .then(data => setStores(data))
+      .catch(err => console.error(err));
+  }, []);
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-6">
+      {stores.slice(0,6).map(store => (
+        <StoreCard key={store._id} store={store} />
+      ))}
+    </div>
+  );
 };
 
 export default RecentStore;

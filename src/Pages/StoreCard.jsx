@@ -2,7 +2,7 @@ import React from "react";
 
 
 const StoreCard = ({ store }) => {
-  console.log(store)
+  // console.log(store)
   // const {category} = store
   
 
