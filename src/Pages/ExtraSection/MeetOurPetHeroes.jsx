@@ -4,22 +4,22 @@ const heroes = [
   {
     name: "Sadia Rahman",
     role: "Adopted Bella (Golden Retriever)",
-    img: "https://i.ibb.co/9Vv9Hjm/hero1.jpg",
+    img: "https://i.ibb.co.com/V0gC0QHF/w1.jpg",
   },
   {
     name: "Rafiul Hasan",
     role: "Rescued Milo the Cat",
-    img: "https://i.ibb.co/3YxFw5Y/hero2.jpg",
+    img: "https://i.ibb.co.com/BHBWRJHr/m2.jpg",
   },
   {
     name: "Jannat Ara",
     role: "Volunteer & Pet Foster",
-    img: "https://i.ibb.co/5WB1z5p/hero3.jpg",
+    img: "https://i.ibb.co.com/SwmHZ92w/w2.jpg",
   },
   {
     name: "Kamal Uddin",
     role: "Adopted Max (German Shepherd)",
-    img: "https://i.ibb.co/N1GNYn1/hero4.jpg",
+    img: "https://i.ibb.co.com/hFByx6V1/m1.jpg",
   },
 ];
 

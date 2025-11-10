@@ -11,9 +11,7 @@ const Home = () => {
   return (
     <div className="max-w-7xl mx-auto px-4">
       <SlideBanner />
-      {/* <Categories /> */}
       <RecentList />
-      
       <WhyAdopt></WhyAdopt>
       <MeetOurPetHeroes></MeetOurPetHeroes>
     </div>

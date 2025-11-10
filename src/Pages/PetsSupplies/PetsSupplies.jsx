@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PetSuppliesCard from "./PetSuppliesCard";
-import {
-  FaDog,
-  FaDrumstickBite,
-  FaBone,
-  FaPills,
-  FaThLarge,
-} from "react-icons/fa";
+import { FaDog, FaDrumstickBite, FaBone, FaPills, FaThLarge } from "react-icons/fa";
 
 const categories = [
   { name: "All", icon: FaThLarge },
@@ -38,26 +32,19 @@ const PetsSupplies = () => {
       setFilteredStores(stores);
     } else {
       const filtered = stores.filter(
-        (store) => store.category === selectedCategory
+        (store) =>
+          store.category.toLowerCase() === selectedCategory.toLowerCase()
       );
       setFilteredStores(filtered);
     }
   }, [selectedCategory, stores]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  }
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 my-7">
-      {/* Section Title */}
       <h2 className="text-4xl font-bold text-center mb-8 flex items-center justify-center gap-3">
-        <span className="text-4xl">🛒</span> {/* Emoji/Icon */}
-        Our <span className="text-[#5633e4]">Collections</span>
+        <span className="text-4xl">🛒</span> Our <span className="text-[#5633e4]">Collections</span>
       </h2>
 
       {/* Category Buttons */}

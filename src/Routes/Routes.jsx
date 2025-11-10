@@ -3,14 +3,14 @@ import Root from "../Layout/Root";
 import Home from "../Pages/Home";
 import PetsSupplies from "../Pages/PetsSupplies/PetsSupplies";
 import PrivateRoute from "./PrivateRoute";
-import AddListing from "../Pages/AddListing";
-import MyListings from "../Pages/MyListings";
-import MyOrders from "../Pages/MyOrders";
+import AddListing from "../Pages/AddListing/AddListing";
+import MyProfile from "../Pages/MyProfile"
+import MyOrders from "../Pages/MyOrders/MyOrders";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
-import MyProfile from "../Pages/MyProfile";
+import MyListings from "../Pages/MyListing/MyListings";
 import Error from "../Pages/Error404/Error";
-import ListingDetails from "../Pages/Details/ListingDetails";
+import ProductDetails from "../Pages/Details/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -52,13 +52,13 @@ export const router = createBrowserRouter([
       // ✅ Dynamic SeeDetails route for all categories
       {
         path: "/:category/:id",
-        element: <PrivateRoute>
-            <ListingDetails />
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(
-            `http://localhost:5000/${params.category}/${params.id}`
-          ),
+          fetch(`http://localhost:5000/${params.category}/${params.id}`),
       },
       {
         path: "/myProfile",

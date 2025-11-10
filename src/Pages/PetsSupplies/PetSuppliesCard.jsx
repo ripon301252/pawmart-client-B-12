@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 const PetSuppliesCard = ({ store }) => {
-  const { image = '', name = '', category = '', price = 0, location = '' } = store || {};
+  const navigate = useNavigate();
+  const { _id, image = '', name = '', category = '', price = 0, location = '' } = store || {};
 
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer">
@@ -18,9 +19,12 @@ const PetSuppliesCard = ({ store }) => {
           {price === 0 ? "Free for Adoption" : `৳ ${price}`}
         </p>
         <p className="text-sm text-gray-500">{location}</p>
-        <Link to={`/SeeDetails/:id`} className="mt-2 bg-[#5633e4] hover:bg-[#654dc7] text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center">
+        <button
+          onClick={() => navigate(`/product-details/${_id}`)}
+          className="mt-2 bg-[#5633e4] hover:bg-[#654dc7] text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+        >
           See Details
-        </Link>
+        </button>
       </div>
     </div>
   );
