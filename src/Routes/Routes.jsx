@@ -52,7 +52,9 @@ export const router = createBrowserRouter([
       // ✅ Dynamic SeeDetails route for all categories
       {
         path: "/:category/:id",
-        element: <ListingDetails />,
+        element: <PrivateRoute>
+            <ListingDetails />
+        </PrivateRoute>,
         loader: ({ params }) =>
           fetch(
             `http://localhost:5000/${params.category}/${params.id}`

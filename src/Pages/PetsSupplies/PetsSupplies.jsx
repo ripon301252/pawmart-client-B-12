@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import PetSuppliesCard from "./PetSuppliesCard";
+import {
+  FaDog,
+  FaDrumstickBite,
+  FaBone,
+  FaPills,
+  FaThLarge,
+} from "react-icons/fa";
 
 const categories = [
-  "All",
-  "Pets",
-  "Pet Food",
-  "Accessories",
-  "Pet Care Products",
+  { name: "All", icon: FaThLarge },
+  { name: "Pets", icon: FaDog },
+  { name: "Pet Food", icon: FaDrumstickBite },
+  { name: "Accessories", icon: FaBone },
+  { name: "Pet Care Products", icon: FaPills },
 ];
 
 const PetsSupplies = () => {
@@ -26,7 +33,6 @@ const PetsSupplies = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  // Filter when category changes
   useEffect(() => {
     if (selectedCategory === "All") {
       setFilteredStores(stores);
@@ -48,22 +54,32 @@ const PetsSupplies = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 my-7">
-      {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-3 mb-6 ">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`w-full sm:w-auto px-4 py-2 rounded-xl border font-medium transition-all duration-200 cursor-pointer
-        ${
-          selectedCategory === cat
-            ? "bg-orange-500 text-white border-orange-500"
-            : "bg-white text-gray-800 border-gray-300 hover:bg-orange-100"
-        }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Section Title */}
+      <h2 className="text-4xl font-bold text-center mb-8 flex items-center justify-center gap-3">
+        <span className="text-4xl">🛒</span> {/* Emoji/Icon */}
+        Our <span className="text-[#5633e4]">Collections</span>
+      </h2>
+
+      {/* Category Buttons */}
+      <div className="flex flex-col sm:flex-row sm:justify-between gap-4 my-10">
+        {categories.map((cat) => {
+          const Icon = cat.icon;
+          return (
+            <button
+              key={cat.name}
+              onClick={() => setSelectedCategory(cat.name)}
+              className={`flex items-center justify-center sm:justify-start gap-3 px-6 py-4 text-lg sm:text-xl font-semibold transition-all duration-300 cursor-pointer shadow-md
+              ${
+                selectedCategory === cat.name
+                  ? "bg-[#5633e4] text-white rounded-full shadow-lg scale-105"
+                  : "bg-gray-300 hover:text-white border-1 border-gray-300 rounded-2xl hover:bg-gray-400"
+              }`}
+            >
+              <Icon className="text-2xl" />
+              <span>{cat.name}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Stores Grid */}
