@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AllCategories from './AllCategories';
 
-const categories = [
-  { name: 'Pets', icon: '🐶' },
-  { name: 'Pet Food', icon: '🍖' },
-  { name: 'Accessories', icon: '🧸' },
-  { name: 'Pet Care Products', icon: '💊' },
-];
-
 const Categories = ({ onCategorySelect }) => {
+  const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
+
+  // useEffect দিয়ে server থেকে data আনবে
+  useEffect(() => {
+    fetch('http://localhost:5000/categories')
+      .then((res) => res.json())
+      .then((data) => setCategories(data))
+      .catch((error) => console.error('Error fetching categories:', error));
+  }, []);
 
   const handleSelect = (name) => {
     setActiveCategory(name);
@@ -17,7 +19,7 @@ const Categories = ({ onCategorySelect }) => {
   };
 
   return (
-    <div className='flex lg:flex-row flex-col justify-between my-10 gap-4'>
+    <div className="flex lg:flex-row flex-col justify-between my-10 gap-4">
       {categories.map((category) => (
         <AllCategories
           key={category.name}
