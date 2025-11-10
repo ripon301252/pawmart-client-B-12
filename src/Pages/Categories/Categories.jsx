@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import AllCategories from './AllCategories';
+import React, { useState, useEffect } from "react";
+import AllCategories from "./AllCategories";
 
 const Categories = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
@@ -7,10 +7,10 @@ const Categories = ({ onCategorySelect }) => {
 
   // useEffect দিয়ে server থেকে data আনবে
   useEffect(() => {
-    fetch('http://localhost:5000/categories')
+    fetch("https://pawmart-server-gamma.vercel.app/categories")
       .then((res) => res.json())
       .then((data) => setCategories(data))
-      .catch((error) => console.error('Error fetching categories:', error));
+      .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
   const handleSelect = (name) => {

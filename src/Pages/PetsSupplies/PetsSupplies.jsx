@@ -16,7 +16,7 @@ const PetsSupplies = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/stores")
+    fetch("https://pawmart-server-gamma.vercel.app/stores")
       .then((res) => res.json())
       .then((data) => {
         setStores(data);
@@ -49,12 +49,12 @@ const PetsSupplies = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 my-7">
       {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-3 mb-6">
+      <div className="flex flex-wrap justify-center gap-3 mb-6 ">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`w-full sm:w-auto px-4 py-2 rounded-xl border font-medium transition-all duration-200 text-center
+            className={`w-full sm:w-auto px-4 py-2 rounded-xl border font-medium transition-all duration-200 cursor-pointer
         ${
           selectedCategory === cat
             ? "bg-orange-500 text-white border-orange-500"
