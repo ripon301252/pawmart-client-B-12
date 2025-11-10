@@ -7,7 +7,7 @@ const Categories = ({ onCategorySelect }) => {
 
   // useEffect দিয়ে server থেকে data আনবে
   useEffect(() => {
-    fetch("https://pawmart-server-gamma.vercel.app/categories")
+    fetch("http://localhost:5000/categories")
       .then((res) => res.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories:", error));

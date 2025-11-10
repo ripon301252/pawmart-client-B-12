@@ -5,7 +5,7 @@ const PetCareProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://pawmart-server-gamma.vercel.app/petProduct")
+    fetch("http://localhost:5000/petProduct")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));

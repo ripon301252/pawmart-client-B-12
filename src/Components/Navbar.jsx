@@ -22,13 +22,9 @@ const Navbar = () => {
     <>
       <NavLink className={linkClass} to="/">Home</NavLink>
       <NavLink className={linkClass} to="/petsSupplies">Pets & Supplies</NavLink>
-      {user && (
-        <>
-          <NavLink className={linkClass} to="/addListing">Add Listing</NavLink>
-          <NavLink className={linkClass} to="/myListing">My Listing</NavLink>
-          <NavLink className={linkClass} to="/myOrder">My Order</NavLink>
-        </>
-      )}
+      <NavLink className={linkClass} to="/addListing">Add Listing</NavLink>
+      <NavLink className={linkClass} to="/myListing">My Listing</NavLink>
+      <NavLink className={linkClass} to="/myOrder">My Order</NavLink>
     </>
   );
 

@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router";
 
 const FoodCard = ({food}) => {
-    const { _id, image, name, category, price, location } = food;
+    const {  image, name, category, price, location } = food;
   return (
      <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer">
       {/* Image */}
@@ -21,9 +22,9 @@ const FoodCard = ({food}) => {
         <p className="text-sm text-gray-500">{location}</p>
 
         {/* See Details Button */}
-        <button className="mt-2 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-300">
+        <Link to={`/SeeDetails/:id`} className="mt-2 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center">
           See Details
-        </button>
+        </Link>
       </div>
     </div>
   );

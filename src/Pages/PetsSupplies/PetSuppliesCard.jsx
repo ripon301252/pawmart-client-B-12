@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const PetSuppliesCard = ({ store }) => {
   const { image = '', name = '', category = '', price = 0, location = '' } = store || {};
@@ -17,9 +18,9 @@ const PetSuppliesCard = ({ store }) => {
           {price === 0 ? "Free for Adoption" : `৳ ${price}`}
         </p>
         <p className="text-sm text-gray-500">{location}</p>
-        <button className="mt-2 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-300">
+        <Link to={`/SeeDetails/:id`} className="mt-2 bg-orange-500 hover:bg-orange-600 text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-center">
           See Details
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ const Accessories = () => {
   const [accessories, setAccessories] = useState([]);
 
   useEffect(() => {
-    fetch("https://pawmart-server-gamma.vercel.app/accessories")
+    fetch("http://localhost:5000/accessories")
       .then((res) => res.json())
       .then((data) => setAccessories(data))
       .catch((err) => console.error(err));
