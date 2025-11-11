@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/stores/${id}`)
+    fetch(`http://localhost:5000/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setItem(data);

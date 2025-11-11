@@ -1,4 +1,5 @@
 import React from "react";
+import { Typewriter } from "react-simple-typewriter";
 
 const heroes = [
   {
@@ -26,8 +27,17 @@ const heroes = [
 const MeetOurPetHeroes = () => {
   return (
     <section className="my-20 text-center px-4 ">
-      <h2 className="text-3xl font-bold text-gray-800 mb-10">
-        🦸‍♂️ Meet Our <span className="text-white">Pet Heroes</span>
+      <h2 className="text-3xl font-bold text-white mb-10">
+        🦸‍♂️
+        <Typewriter
+          words={[ "Home", "Meet Our Pet Heroes"]}
+          loop={true}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">

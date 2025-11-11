@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PetSuppliesCard from "./PetSuppliesCard";
 import { FaDog, FaDrumstickBite, FaBone, FaPills, FaThLarge } from "react-icons/fa";
+import { Typewriter } from "react-simple-typewriter";
 
 const categories = [
   { name: "All", icon: FaThLarge },
@@ -14,8 +15,10 @@ const PetsSupplies = () => {
   const [stores, setStores] = useState([]);
   const [filteredStores, setFilteredStores] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // Fetch all stores
   useEffect(() => {
     fetch("http://localhost:5000/stores")
       .then((res) => res.json())
@@ -27,28 +30,46 @@ const PetsSupplies = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  // Filter by category & search
   useEffect(() => {
-    if (selectedCategory === "All") {
-      setFilteredStores(stores);
-    } else {
-      const filtered = stores.filter(
+    let filtered = stores;
+
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter(
         (store) =>
           store.category.toLowerCase() === selectedCategory.toLowerCase()
       );
-      setFilteredStores(filtered);
     }
-  }, [selectedCategory, stores]);
+
+    if (searchText) {
+      filtered = filtered.filter((store) =>
+        store.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+
+    setFilteredStores(filtered);
+  }, [selectedCategory, searchText, stores]);
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 my-7">
+      {/* Typewriter Header */}
       <h2 className="text-4xl font-bold text-center mb-8 flex items-center justify-center gap-3">
-        <span className="text-4xl">🛒</span> Our <span className="text-[#5633e4]">Collections</span>
+        <span className="text-4xl">🛒</span>
+        <Typewriter
+          words={["Our Collections", "Pets & Supplies"]}
+          loop={true}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
 
       {/* Category Buttons */}
-      <div className="flex flex-col sm:flex-row sm:justify-between gap-4 my-10">
+      <div className="flex flex-col sm:flex-row sm:justify-between gap-4 my-4">
         {categories.map((cat) => {
           const Icon = cat.icon;
           return (
@@ -69,6 +90,17 @@ const PetsSupplies = () => {
         })}
       </div>
 
+      {/* Search by Name */}
+      <div className="my-5 flex justify-center ">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          className="border p-2 rounded-md w-full sm:w-1/2"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
+
       {/* Stores Grid */}
       {filteredStores.length ? (
         <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
@@ -78,7 +110,7 @@ const PetsSupplies = () => {
         </div>
       ) : (
         <p className="text-center text-gray-500">
-          No listings found in this category.
+          No listings found in this category or search.
         </p>
       )}
     </div>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { FaDog, FaDrumstickBite, FaBone, FaPills } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 
 const RecentList = () => {
   const navigate = useNavigate();
@@ -26,11 +28,26 @@ const RecentList = () => {
       .catch((err) => console.log(err));
   }, [selectedCategory]);
 
+  // Framer Motion Variants for cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    hover: { scale: 1.05 },
+  };
+
   return (
-    <div className="p-4 sm:p-8 ">
+    <div className="p-4 sm:p-8">
       <h1 className="text-center text-4xl font-bold mt-14 mb-8 flex items-center justify-center gap-3">
         <span className="text-4xl">🐾</span>
-        Recent <span className="text-white">List</span>
+        <Typewriter
+          words={["Home", "Recent List"]}
+          loop={true}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h1>
 
       {/* Category Buttons */}
@@ -52,12 +69,17 @@ const RecentList = () => {
         ))}
       </div>
 
-      {/* Responsive 3-column Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
+      {/* Responsive 3-column Grid with Framer Motion */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {stores.slice(0, 6).map((item) => (
-          <div
+          <motion.div
             key={item._id}
-            className=" rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col cursor-pointer group border-1 border-gray-300 backdrop-blur-lg bg-white/10"
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover="hover"
+            transition={{ duration: 0.3 }}
+            className="rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col cursor-pointer group border-1 border-gray-300 backdrop-blur-lg bg-white/10"
           >
             {/* Image with hover effect & rounded */}
             <div className="overflow-hidden rounded-2xl h-56 sm:h-64 lg:h-60 p-5">
@@ -93,7 +115,7 @@ const RecentList = () => {
                 See Details
               </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

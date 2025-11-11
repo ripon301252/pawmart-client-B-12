@@ -1,15 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 
 const PetSuppliesCard = ({ store }) => {
   const navigate = useNavigate();
-  const { _id, image = '', name = '', category = '', price = 0, location = '' } = store || {};
+  const { _id, image = "", name = "", category = "", price = 0, location = "" } =
+    store || {};
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer group">
-      <title>PawMart - Pets & Supplies</title>
-
-      {/* Image with rounded corners and hover effect */}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer group"
+    >
       <div className="overflow-hidden rounded-2xl h-56 sm:h-64 lg:h-60 p-5 border-1 border-gray-300">
         <img
           src={image}
@@ -18,7 +21,6 @@ const PetSuppliesCard = ({ store }) => {
         />
       </div>
 
-      {/* Card Info with padding */}
       <div className="p-5 flex flex-col gap-3">
         <h3 className="text-lg sm:text-xl font-semibold text-gray-800">{name}</h3>
         <p className="text-sm text-gray-500">{category}</p>
@@ -33,7 +35,7 @@ const PetSuppliesCard = ({ store }) => {
           See Details
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

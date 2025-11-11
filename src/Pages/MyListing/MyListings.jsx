@@ -98,7 +98,7 @@ const MyListings = () => {
                   )}
                 </td>
                 <td>{listing.location}</td>
-                <td className="flex gap-2">
+                <td className="flex gap-2 mt-5">
                   {/* Details */}
                   <Link
                     to={`/product-details/${listing._id}`}

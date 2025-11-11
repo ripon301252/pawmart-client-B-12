@@ -67,7 +67,7 @@ export const router = createBrowserRouter([
         element: <MyProfile />,
       },
       {
-        path:'/editListing',
+        path:'/editListing/:id',
         element: <EditListing />
       },
       {

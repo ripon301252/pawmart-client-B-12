@@ -5,17 +5,19 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
 import Img from "../assets/logo.png";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [avatarDropdown, setAvatarDropdown] = useState(false);
+  const [showName, setShowName] = useState(false); // Hover tooltip
 
   const linkClass = ({ isActive }) =>
-    `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+    `px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
       isActive
         ? "text-[#5633e4] border-b-2 border-[#8755ea]"
-        : "text-gray-700 hover:text-[#5633e4]"
+        : "text-gray-700 hover:text-[#5633e4] hover:scale-105"
     }`;
 
   const links = (
@@ -48,66 +50,73 @@ const Navbar = () => {
       .then(() => toast.success("Sign-out successful"))
       .catch((err) => toast.error(err.message));
     setAvatarDropdown(false);
-    setOpen(false);
   };
 
   return (
-    <nav className="bg-gray-400 shadow-sm sticky top-0 z-50 ">
+    <nav className="bg-white dark:bg-gray-500 shadow-md sticky top-0 z-50 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
+
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-1">
+          <Link
+            to="/"
+            className="flex items-center gap-2 hover:scale-105 transition-transform duration-300"
+          >
             <img src={Img} alt="PawMart Logo" className="w-10 h-10" />
-            <h1 className="text-2xl font-bold text-gray-800">
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
               Paw<span className="text-orange-500">Mart</span>
             </h1>
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-4">{links}</div>
+          <div className="hidden md:flex items-center gap-6">{links}</div>
 
-          {/* User Auth Buttons */}
+          {/* Desktop Theme + Avatar */}
           <div className="hidden md:flex items-center gap-4 relative">
+            <ThemeToggle />
+
             {user ? (
-              <>
-                <div
-                  className="relative group mr-5"
+              <div className="relative flex items-center">
+                {/* Avatar */}
+                <img
+                  src={user?.photoURL}
+                  alt={user?.displayName || "User Avatar"}
+                  className="w-10 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600 shadow-md cursor-pointer hover:ring-2 hover:ring-[#5633e4] transition-all duration-300"
+                  onMouseEnter={() => setShowName(true)}
+                  onMouseLeave={() => setShowName(false)}
                   onClick={() => setAvatarDropdown(!avatarDropdown)}
-                >
-                  <img
-                    src={user?.photoURL}
-                    alt={user?.displayName ? `${user.displayName}'s avatar` : "User Avatar"}
-                    className="w-10 h-10 rounded-full border border-gray-300 cursor-pointer"
-                  />
-                  {/* Hover tooltip for name */}
-                  <div className="absolute left-1/2 -translate-x-1/2 mt-2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center">
+                />
+
+                {/* Hover Tooltip for Name */}
+                {showName && (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-13 bg-gray-800 text-white text-xs px-2 py-1 rounded text-center shadow-md">
                     {user.displayName || "User"}
                   </div>
+                )}
 
-                  {/* Dropdown */}
-                  {avatarDropdown && (
-                    <div className="absolute -right-10 mt-2 w-28 bg-gray-400 rounded-b-md shadow-lg flex flex-col z-50">
-                      <Link
-                        to="/myProfile"
-                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-semibold"
-                        onClick={() => setAvatarDropdown(false)}
-                      >
-                        My Profile
-                      </Link>
-                      <button
-                        onClick={handleSignOut}
-                        className="px-4 py-2 text-gray-700 text-center hover:bg-gray-100 rounded-b-md cursor-pointer font-semibold "
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </>
+                {/* Click Dropdown */}
+                {avatarDropdown && (
+                  <div className="absolute -right-12 mt-36 w-36 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg flex flex-col z-50 overflow-hidden border border-gray-200 dark:border-gray-700">
+                    <Link
+                      to="/myProfile"
+                      className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium transition-colors"
+                      onClick={() => setAvatarDropdown(false)}
+                    >
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-left"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 to="/signin"
-                className="flex items-center gap-1 bg-gradient-to-r from-[#5633e4] to-[#8755ea] text-white px-3 py-2 rounded-md hover:scale-105 transition-transform"
+                className="flex items-center gap-1 bg-gradient-to-r from-[#5633e4] to-[#8755ea] text-white px-3 py-2 rounded-lg hover:scale-105 transition-transform font-semibold shadow-md"
               >
                 <IoLogInOutline />
                 LogIn
@@ -115,11 +124,12 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile Menu */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setOpen(!open)}
-              className="text-gray-700 focus:outline-none"
+              className="text-gray-700 dark:text-gray-200 focus:outline-none"
             >
               {open ? (
                 <IoCloseSharp className="w-6 h-6" />
@@ -133,32 +143,31 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-white shadow-lg border-t border-gray-200">
-          <div className="px-4 pt-2 pb-4 space-y-1 flex flex-col">
+        <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg border-t border-gray-200 dark:border-gray-700 animate-slideDown">
+          <div className="px-4 pt-2 pb-4 flex flex-col gap-3">
             {links}
             {user ? (
               <>
-                {/* User Tooltip & Buttons */}
                 <div className="flex items-center gap-3 py-2">
                   <img
                     src={user?.photoURL}
                     alt={user?.displayName || "User"}
-                    className="w-10 h-10 rounded-full border border-gray-300"
+                    className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600"
                   />
-                  <span className="font-semibold text-gray-800">
+                  <span className="font-semibold text-gray-800 dark:text-white">
                     {user.displayName || "User"}
                   </span>
                 </div>
                 <Link
                   to="/profile"
-                  className="px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100"
+                  className="px-3 py-2 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   onClick={() => setOpen(false)}
                 >
                   Profile
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="flex items-center gap-2 bg-gradient-to-r from-[#5633e4] to-[#8755ea] text-white px-3 py-2 rounded-md w-full justify-center"
+                  className="flex items-center gap-2 bg-gradient-to-r from-[#5633e4] to-[#8755ea] text-white px-3 py-2 rounded-md w-full justify-center font-semibold shadow-md"
                 >
                   <IoLogInOutline className="rotate-180" />
                   Sign Out
@@ -167,7 +176,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/signin"
-                className="flex items-center gap-2 bg-gradient-to-r from-[#5633e4] to-[#8755ea] text-white px-3 py-2 rounded-md justify-center"
+                className="flex items-center gap-2 bg-gradient-to-r from-[#5633e4] to-[#8755ea] text-white px-3 py-2 rounded-md justify-center font-semibold shadow-md"
               >
                 <IoLogInOutline />
                 Sign In

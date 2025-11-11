@@ -3,8 +3,9 @@ import { useParams, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-hot-toast";
 
+
 const EditListing = () => {
-  const { id } = useParams(); // Listing ID
+  const { id } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -22,9 +23,9 @@ const EditListing = () => {
   const [isPets, setIsPets] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  // Fetch listing details
+  // Fetch listing
   useEffect(() => {
-    fetch(`http://localhost:5000/stores/${id}`)
+    fetch(`http://localhost:5000/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -84,18 +85,25 @@ const EditListing = () => {
     }
   };
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (loading)
+    return (
+      <p className="text-center mt-10 text-gray-700 dark:text-gray-200">
+        Loading...
+      </p>
+    );
 
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-8">
-      <title>PawMart - Edit Listing</title>
-      <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-800 text-center sm:text-left">
-        Edit Listing
-      </h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100">
+          Edit Listing
+        </h2>
+        
+      </div>
 
       <form
         onSubmit={handleUpdate}
-        className="flex flex-col gap-4 bg-white p-6 sm:p-8 rounded-2xl shadow-lg"
+        className="flex flex-col gap-4 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-lg"
       >
         <input
           type="text"
@@ -103,7 +111,7 @@ const EditListing = () => {
           placeholder="Product / Pet Name *"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 transition"
           required
         />
 
@@ -111,7 +119,7 @@ const EditListing = () => {
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 transition"
         >
           <option>Pets</option>
           <option>Pet Food</option>
@@ -128,7 +136,9 @@ const EditListing = () => {
           min="0"
           disabled={isPets}
           className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition ${
-            isPets ? "bg-gray-100 cursor-not-allowed" : ""
+            isPets
+              ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+              : "dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
           }`}
         />
 
@@ -138,7 +148,7 @@ const EditListing = () => {
           placeholder="Location *"
           value={formData.location}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 transition"
           required
         />
 
@@ -147,7 +157,7 @@ const EditListing = () => {
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 transition"
         />
 
         <input
@@ -156,7 +166,7 @@ const EditListing = () => {
           placeholder="Image URL *"
           value={formData.image}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 transition"
           required
         />
 
@@ -165,7 +175,7 @@ const EditListing = () => {
           placeholder="Description"
           value={formData.description}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 transition"
           rows={4}
         ></textarea>
 
@@ -174,7 +184,7 @@ const EditListing = () => {
           name="email"
           value={formData.email}
           readOnly
-          className="w-full p-3 border rounded-lg bg-gray-100 cursor-not-allowed"
+          className="w-full p-3 border rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-300 cursor-not-allowed"
         />
 
         <button
