@@ -56,6 +56,7 @@ const MyOrders = () => {
 
   return (
     <div className="p-6 md:p-10 max-w-6xl mx-auto">
+      <title>PawMart - My Orders</title>
       <h2 className="text-3xl font-bold mb-6 text-center text-primary">
         🐾 My Orders
       </h2>

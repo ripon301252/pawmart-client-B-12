@@ -4,7 +4,7 @@ import { IoCloseSharp, IoLogInOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
-import Img from '../assets/logo.png';
+import Img from "../assets/logo.png";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -20,31 +20,46 @@ const Navbar = () => {
 
   const links = (
     <>
-      <NavLink className={linkClass} to="/">Home</NavLink>
-      <NavLink className={linkClass} to="/petsSupplies">Pets & Supplies</NavLink>
-      <NavLink className={linkClass} to="/addListing">Add Listing</NavLink>
-      <NavLink className={linkClass} to="/myListing">My Listing</NavLink>
-      <NavLink className={linkClass} to="/myOrder">My Order</NavLink>
+      <NavLink className={linkClass} to="/">
+        Home
+      </NavLink>
+      <NavLink className={linkClass} to="/petsSupplies">
+        Pets & Supplies
+      </NavLink>
+
+      {user && (
+        <>
+          <NavLink className={linkClass} to="/addListing">
+            Add Listing
+          </NavLink>
+          <NavLink className={linkClass} to="/myListing">
+            My Listing
+          </NavLink>
+          <NavLink className={linkClass} to="/myOrder">
+            My Orders
+          </NavLink>
+        </>
+      )}
     </>
   );
 
   const handleSignOut = () => {
     logOut()
       .then(() => toast.success("Sign-out successful"))
-      .catch(err => toast.error(err.message));
+      .catch((err) => toast.error(err.message));
     setAvatarDropdown(false);
     setOpen(false);
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-gray-400 shadow-sm sticky top-0 z-50 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-1">
             <img src={Img} alt="PawMart Logo" className="w-10 h-10" />
             <h1 className="text-2xl font-bold text-gray-800">
-              Paw<span className="text-[#5633e4]">Mart</span>
+              Paw<span className="text-orange-500">Mart</span>
             </h1>
           </Link>
 
@@ -61,7 +76,7 @@ const Navbar = () => {
                 >
                   <img
                     src={user?.photoURL}
-                    alt={user?.displayName || "User"}
+                    alt={user?.displayName ? `${user.displayName}'s avatar` : "User Avatar"}
                     className="w-10 h-10 rounded-full border border-gray-300 cursor-pointer"
                   />
                   {/* Hover tooltip for name */}
@@ -71,13 +86,13 @@ const Navbar = () => {
 
                   {/* Dropdown */}
                   {avatarDropdown && (
-                    <div className="absolute -right-10 mt-2 w-28 bg-white rounded-b-md shadow-lg flex flex-col z-50">
+                    <div className="absolute -right-10 mt-2 w-28 bg-gray-400 rounded-b-md shadow-lg flex flex-col z-50">
                       <Link
                         to="/myProfile"
                         className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-semibold"
                         onClick={() => setAvatarDropdown(false)}
                       >
-                        Profile
+                        My Profile
                       </Link>
                       <button
                         onClick={handleSignOut}
@@ -97,8 +112,6 @@ const Navbar = () => {
                 <IoLogInOutline />
                 LogIn
               </Link>
-
-              
             )}
           </div>
 
@@ -108,7 +121,11 @@ const Navbar = () => {
               onClick={() => setOpen(!open)}
               className="text-gray-700 focus:outline-none"
             >
-              {open ? <IoCloseSharp className="w-6 h-6" /> : <GiHamburgerMenu className="w-6 h-6" />}
+              {open ? (
+                <IoCloseSharp className="w-6 h-6" />
+              ) : (
+                <GiHamburgerMenu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>

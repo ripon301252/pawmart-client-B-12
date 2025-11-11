@@ -11,11 +11,14 @@ import Register from "../Pages/Auth/Register";
 import MyListings from "../Pages/MyListing/MyListings";
 import Error from "../Pages/Error404/Error";
 import ProductDetails from "../Pages/Details/ProductDetails";
+import EditListing from "../Pages/MyListing/EditListing";
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
+    errorElement:<Error />,
     children: [
       {
         path: "/",
@@ -49,7 +52,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // ✅ Dynamic SeeDetails route for all categories
       {
         path: "/:category/:id",
         element: (
@@ -65,18 +67,18 @@ export const router = createBrowserRouter([
         element: <MyProfile />,
       },
       {
+        path:'/editListing',
+        element: <EditListing />
+      },
+      {
         path: "/signin",
         Component: Login,
       },
       {
         path: "/signup",
         Component: Register,
-      },
-      // Optional: errorElement
-      {
-        path: "*",
-        // Component: Error,
-      },
+      }
+      
     ],
   },
 ]);

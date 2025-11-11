@@ -28,18 +28,18 @@ const WhyAdopt = () => {
   return (
     <section className="my-16 text-center px-4">
       <h2 className="text-3xl font-bold text-gray-800 mb-8">
-        🐾 Why Adopt from <span className="text-orange-500">PawMart?</span>
+        🐾 Why Adopt from <span className="text-white">PawMart?</span>
       </h2>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {reasons.map((item, i) => (
           <div
             key={i}
-            className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-all border border-gray-100"
+            className="p-6 backdrop-blur-lg bg-white/10 rounded-xl shadow hover:shadow-lg transition-all border border-gray-300"
           >
             <div className="mb-3 flex justify-center">{item.icon}</div>
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600 text-sm">{item.desc}</p>
+            <h3 className="text-lg text-white font-semibold mb-2">{item.title}</h3>
+            <p className="text-white text-sm">{item.desc}</p>
           </div>
         ))}
       </div>

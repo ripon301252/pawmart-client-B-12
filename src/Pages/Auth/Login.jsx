@@ -53,8 +53,7 @@ const Login = () => {
 
   return (
     <div className="md:min-h-screen py-5 flex items-center justify-center  bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 px-4">
-      <title>KidsToy - SignIn</title>
-
+      <title>PawMart - SignIn</title>
       <div className="card w-full max-w-md backdrop-blur-lg bg-white/10 shadow-2xl border border-white/50 rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Welcome Back</h1>
 
