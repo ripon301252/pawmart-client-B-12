@@ -1,15 +1,15 @@
-#####🐾 PawMart
+# 🐾 PawMart
 
 ## Live Site Link: https://paw-mart.web.app
 
 ## (Replace with your actual Firebase or Vercel link)
 
-##📝 Project Overview
+## 📝 Project Overview
 
-## PawMart is a community-driven pet marketplace where pet owners, breeders, and shop owners can list pets, food, accessories, and care products for sale or adoption.
+### PawMart is a community-driven pet marketplace where pet owners, breeders, and shop owners can list pets, food, accessories, and care products for sale or adoption.
 Buyers and adopters can browse, order, and adopt pets easily through the platform.
 
-##🌟 Key Features (5 Features)
+## 🌟 Key Features (5 Features)
 
 - 🐶 Add & Manage Listings
 
