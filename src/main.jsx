@@ -10,11 +10,11 @@ import { ThemeProvider } from "next-themes";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider attribute="class" defaultTheme="light">
       <AuthProvider>
+    <ThemeProvider attribute="class" defaultTheme="light">
         <RouterProvider router={router}></RouterProvider>
         <Toaster position="top-center" reverseOrder={false} />
-      </AuthProvider>
     </ThemeProvider>
+      </AuthProvider>
   </StrictMode>
 );

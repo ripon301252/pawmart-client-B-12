@@ -11,7 +11,9 @@ const MyOrders = () => {
   // Fetch Orders
   useEffect(() => {
     if (!user?.email) return;
-    fetch(`http://localhost:5000/myOrders?email=${user.email}`)
+    fetch(
+      `https://pawmart-server-gamma.vercel.app/myOrders?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -29,7 +31,10 @@ const MyOrders = () => {
     if (!window.confirm("Are you sure you want to remove this order?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/myOrders/${id}`, { method: "DELETE" });
+      const res = await fetch(
+        `https://pawmart-server-gamma.vercel.app/myOrders/${id}`,
+        { method: "DELETE" }
+      );
       if (!res.ok) throw new Error("Failed to delete order");
       toast.success("Order removed successfully!");
       setOrders((prev) => prev.filter((order) => order._id !== id));
@@ -93,10 +98,18 @@ const MyOrders = () => {
                   <td className="px-4 py-3">{index + 1}</td>
                   <td className="px-4 py-3">{order.name}</td>
                   <td className="px-4 py-3">{order.category}</td>
-                  <td className="px-4 py-3">{order.price === 0 ? "Free for Adoption" : `৳ ${order.price}`}</td>
+                  <td className="px-4 py-3">
+                    {order.price === 0
+                      ? "Free for Adoption"
+                      : `৳ ${order.price}`}
+                  </td>
                   <td className="px-4 py-3">{order.quantity || 1}</td>
                   <td className="px-4 py-3">{order.address || "-"}</td>
-                  <td className="px-4 py-3">{order.date ? new Date(order.date).toLocaleDateString() : "-"}</td>
+                  <td className="px-4 py-3">
+                    {order.date
+                      ? new Date(order.date).toLocaleDateString()
+                      : "-"}
+                  </td>
                   <td className="px-4 py-3">{order.phone || "-"}</td>
                   <td className="px-4 py-3">{order.email}</td>
                   <td className="px-4 py-3 flex flex-wrap gap-2 mt-2">

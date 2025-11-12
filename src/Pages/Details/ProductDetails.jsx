@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/stores/details/${id}`)
+    fetch(`https://pawmart-server-gamma.vercel.app/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
@@ -30,7 +30,9 @@ const ProductDetails = () => {
 
   if (!item)
     return (
-      <p className="text-center text-xl text-gray-500 mt-20">Item not found 😿</p>
+      <p className="text-center text-xl text-gray-500 mt-20">
+        Item not found 😿
+      </p>
     );
 
   return (
@@ -69,9 +71,7 @@ const ProductDetails = () => {
             <p className="text-white text-lg mb-3">
               <strong>💰 Price:</strong>{" "}
               {item.price > 0 ? (
-                <span className="text-white font-semibold">
-                  ৳ {item.price}
-                </span>
+                <span className="text-white font-semibold">৳ {item.price}</span>
               ) : (
                 <span className="text-green-600 font-semibold">
                   Free for Adoption 🐾

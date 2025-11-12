@@ -9,7 +9,8 @@ const OrderModal = ({ item, userEmail, onClose }) => {
   const [loading, setLoading] = useState(false);
 
   const handleConfirmOrder = async () => {
-    if (!userEmail) return toast.error("You must be logged in to place an order");
+    if (!userEmail)
+      return toast.error("You must be logged in to place an order");
     if (!address || !phone || !date)
       return toast.error("Please fill in all required fields!");
 
@@ -29,11 +30,14 @@ const OrderModal = ({ item, userEmail, onClose }) => {
         orderTime: new Date(),
       };
 
-      const res = await fetch("http://localhost:5000/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
+      const res = await fetch(
+        "https://pawmart-server-gamma.vercel.app/orders",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData),
+        }
+      );
 
       const data = await res.json();
       if (res.ok) {

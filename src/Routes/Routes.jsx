@@ -4,7 +4,7 @@ import Home from "../Pages/Home";
 import PetsSupplies from "../Pages/PetsSupplies/PetsSupplies";
 import PrivateRoute from "./PrivateRoute";
 import AddListing from "../Pages/AddListing/AddListing";
-import MyProfile from "../Pages/MyProfile"
+import MyProfile from "../Pages/MyProfile";
 import MyOrders from "../Pages/MyOrders/MyOrders";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
@@ -14,12 +14,11 @@ import ProductDetails from "../Pages/Details/ProductDetails";
 import EditListing from "../Pages/MyListing/EditListing";
 import ResetPassword from "../Pages/Auth/ResetPassword";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
-    errorElement:<Error />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -61,15 +60,17 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/${params.category}/${params.id}`),
+          fetch(
+            `https://pawmart-server-gamma.vercel.app/${params.category}/${params.id}`
+          ),
       },
       {
         path: "/myProfile",
         element: <MyProfile />,
       },
       {
-        path:'/editListing/:id',
-        element: <EditListing />
+        path: "/editListing/:id",
+        element: <EditListing />,
       },
       {
         path: "/signin",
@@ -81,9 +82,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/forgotPassword",
-        Component: ResetPassword 
-      }
-      
+        Component: ResetPassword,
+      },
     ],
   },
 ]);

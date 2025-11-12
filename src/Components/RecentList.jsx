@@ -19,7 +19,7 @@ const RecentList = () => {
   // Fetch stores by selected category
   useEffect(() => {
     fetch(
-      `http://localhost:5000/stores-list?category=${encodeURIComponent(
+      `https://pawmart-server-gamma.vercel.app/stores-list?category=${encodeURIComponent(
         selectedCategory
       )}`
     )
@@ -126,7 +126,11 @@ const RecentList = () => {
 
               <button
                 onClick={() =>
-                  navigate(`/${selectedCategory.toLowerCase().replace(/\s/g, "")}/${item._id}`)
+                  navigate(
+                    `/${selectedCategory.toLowerCase().replace(/\s/g, "")}/${
+                      item._id
+                    }`
+                  )
                 }
                 className="mt-4 backdrop-blur-lg bg-white/10 text-white text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
                 aria-label={`See details of ${item.name}`}
