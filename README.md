@@ -1,46 +1,35 @@
 # 🐾 PawMart
 
-## Live Site Link: https://paw-mart.web.app
+**Live Site:** [https://paw-mart.web.app](https://paw-mart.web.app)
 
-## (Replace with your actual Firebase or Vercel link)
+---
 
 ## 📝 Project Overview
 
-### PawMart is a community-driven pet marketplace where pet owners, breeders, and shop owners can list pets, food, accessories, and care products for sale or adoption.
+PawMart is a community-driven pet marketplace where pet owners, breeders, and shop owners can list pets, food, accessories, and care products for sale or adoption.  
 Buyers and adopters can browse, order, and adopt pets easily through the platform.
 
-## 🌟 Key Features (5 Features)
+---
 
-- 🐶 Add & Manage Listings
+## 🌟 Key Features
 
-- Registered users can add their pets or products for sale/adoption.
+- 🐶 **Add & Manage Listings** — Registered users can add their pets or products for sale/adoption and manage them from the "My Listings" page.  
+- 🛒 **Order System (Adoption & Purchase)** — Users can place an order or adoption request for any pet or product. Orders appear on the "My Orders" page with a remove option.  
+- 📦 **Dynamic Category Display** — Homepage dynamically displays items by category: Pets, Food, Accessories, and Care Products.  
+- 🔐 **User Authentication (Firebase Auth)** — Secure login and registration using Firebase Authentication (Email/Password & Google Login).  
+- 🌈 **Responsive & Modern UI** — Built with TailwindCSS and DaisyUI for a clean, mobile-friendly, and modern design.
 
-- Users can view and manage their own listings from the My Listings page.
-
-## 🛒 Order System (Adoption & Purchase)
-
-- Users can place an order or adoption request for any pet or product.
-
-- All orders are shown on the My Orders page, with a remove option.
-
-## 📦 Dynamic Category Display
-
-- The homepage displays items categorized as Pets, Food, Accessories, and Care Products.
-
-## 🔐 User Authentication (Firebase Auth)
-
-- Secure login and registration using Firebase Authentication (Email/Password & Google Login).
-
-## 🌈 Responsive & Modern UI
-
-- Built with TailwindCSS and DaisyUI, ensuring a clean, mobile-friendly, and modern design across all devices.
+---
 
 ## ⚙️ Tech Stack
 
-- Frontend: React.js, React Router, TailwindCSS, DaisyUI, React Hot Toast
+**Frontend:** React.js, React Router, TailwindCSS, DaisyUI, React Hot Toast  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB Atlas  
+**Authentication:** Firebase Authentication  
 
-- Backend: Node.js, Express.js
+---
 
-- Database: MongoDB Atlas
+## 👨‍💻 Developer
 
-- Authentication: Firebase Authentication
+Developed by **Mahfuzur Rahman** — Batch 12, Programming Hero.
