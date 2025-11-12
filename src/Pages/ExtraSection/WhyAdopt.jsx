@@ -28,7 +28,7 @@ const WhyAdopt = () => {
 
   return (
     <section className="my-16 text-center px-4">
-      <h2 className="text-3xl font-bold text-white mb-8">
+      <h2 className="text-4xl font-bold text-white mb-8">
         🐾
         <Typewriter
           words={["Home", "Why Adopt from PawMart?"]}

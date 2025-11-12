@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-hot-toast";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import { Typewriter } from "react-simple-typewriter";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //  Fetch Orders
+  // Fetch Orders
   useEffect(() => {
     if (!user?.email) return;
     fetch(`http://localhost:5000/myOrders?email=${user.email}`)
@@ -21,167 +20,102 @@ const MyOrders = () => {
       .catch((err) => {
         console.error(err);
         toast.error("Failed to load orders!");
+        setLoading(false);
       });
   }, [user?.email]);
 
-  //  Delete Order
+  // Delete Order
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to remove this order?"
-    );
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to remove this order?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/myOrders/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success(data.message || "Order removed successfully!");
-        setOrders((prev) => prev.filter((order) => order._id !== id));
-      } else {
-        toast.error(data.message || "Failed to remove order!");
-      }
+      const res = await fetch(`http://localhost:5000/myOrders/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete order");
+      toast.success("Order removed successfully!");
+      setOrders((prev) => prev.filter((order) => order._id !== id));
     } catch (err) {
       console.error(err);
-      toast.error("Server error! Try again later.");
+      toast.error("Failed to remove order!");
     }
   };
 
-  //  Generate & Download PDF Report
-  const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-
-    // Title
-    doc.setFontSize(18);
-    doc.text("PawMart - My Orders Report", 14, 20);
-
-    // Table
-    autoTable(doc, {
-      startY: 30,
-      head: [
-        [
-          "#",
-          "Product",
-          "Category",
-          "Price",
-          "Qty",
-          "Address",
-          "Date",
-          "Phone",
-          "Owner Email",
-        ],
-      ],
-      body: orders.map((order, i) => [
-        i + 1,
-        order.name,
-        order.category,
-        order.price === 0 ? "Free for Adoption" : `BDT ${order.price}`,
-        order.quantity || 1,
-        order.address || "-",
-        order.date ? new Date(order.date).toLocaleDateString() : "-",
-        order.phone || "-",
-        order.email,
-      ]),
-      styles: { fontSize: 10 },
-      headStyles: { fillColor: [64, 64, 64] },
-    });
-
-    // ➕ Summary
-    const finalY = doc.lastAutoTable.finalY || 40;
-    const totalOrders = orders.length;
-    const totalPrice = orders.reduce(
-      (sum, o) => sum + (o.price || 0) * (o.quantity || 1),
-      0
-    );
-    doc.setFontSize(12);
-    doc.text(
-      `Summary: Total Orders = ${totalOrders}, Total Price = BDT ${totalPrice}`,
-      14,
-      finalY + 10
-    );
-
-    // Footer
-    const date = new Date().toLocaleString();
-    doc.setFontSize(10);
-    doc.text(`Generated on: ${date}`, 14, doc.internal.pageSize.height - 10);
-
-    // Save PDF
-    doc.save("My_Orders_Report.pdf");
-  };
-
   if (loading)
-    return <p className="text-center mt-10 text-lg font-semibold">Loading...</p>;
-
-  if (!orders.length)
     return (
-      <p className="text-center mt-10 text-lg text-gray-500">No orders found</p>
+      <p className="text-center mt-10 text-lg font-semibold text-white">
+        Loading...
+      </p>
     );
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto py-4 md:p-8">
       <title>PawMart - My Orders</title>
-      <h2 className="text-3xl font-bold mb-6 text-center text-primary">
-        🐾 My Orders
+
+      {/* Heading */}
+      <h2 className="text-4xl md:text-4xl font-bold pb-12  text-center text-white flex justify-center items-center gap-3">
+        🐾
+        <Typewriter
+          words={["My Orders"]}
+          loop
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
 
-      {/* Download Report Button */}
-      <div className="flex justify-end mb-4">
-        <button onClick={handleDownloadPDF} className="btn btn-primary btn-sm">
-          🧩 Download Report
-        </button>
-      </div>
-
-      <div className="overflow-x-auto shadow-lg rounded-lg">
-        <table className="table table-zebra w-full">
-          <thead className="bg-base-200 text-base font-semibold">
+      {/* Responsive Table */}
+      <div className="overflow-x-auto shadow-lg rounded-xl">
+        <table className="min-w-full border-collapse text-left">
+          <thead className="bg-primary text-white text-base md:text-lg font-semibold">
             <tr>
-              <th>#</th>
-              <th>Product</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Address</th>
-              <th>Date</th>
-              <th>Phone</th>
-              <th>Owner Email</th>
-              <th>Action</th>
+              <th className="px-4 py-3">#</th>
+              <th className="px-4 py-3">Product</th>
+              <th className="px-4 py-3">Category</th>
+              <th className="px-4 py-3">Price</th>
+              <th className="px-4 py-3">Qty</th>
+              <th className="px-4 py-3">Address</th>
+              <th className="px-4 py-3">Date</th>
+              <th className="px-4 py-3">Phone</th>
+              <th className="px-4 py-3">Owner Email</th>
+              <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
-
           <tbody>
-            {orders.map((order, index) => (
-              <tr key={order._id} className="hover">
-                <th>{index + 1}</th>
-                <td>{order.name}</td>
-                <td>{order.category}</td>
-                <td>
-                  {order.price === 0 ? (
-                    <span className="text-success font-medium">
-                      Free for Adoption
-                    </span>
-                  ) : (
-                    `BDT ${order.price}`
-                  )}
-                </td>
-                <td>{order.quantity}</td>
-                <td>{order.address || "-"}</td>
-                <td>
-                  {order.date ? new Date(order.date).toLocaleDateString() : "-"}
-                </td>
-                <td>{order.phone || "-"}</td>
-                <td>{order.email}</td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(order._id)}
-                    className="btn btn-error btn-sm text-white"
-                  >
-                    Remove
-                  </button>
+            {orders.length > 0 ? (
+              orders.map((order, index) => (
+                <tr
+                  key={order._id}
+                  className={`transition-colors text-white text-sm md:text-base hover:bg-white/20 ${
+                    index % 2 === 0 ? "bg-white/5" : "bg-white/10"
+                  }`}
+                >
+                  <td className="px-4 py-3">{index + 1}</td>
+                  <td className="px-4 py-3">{order.name}</td>
+                  <td className="px-4 py-3">{order.category}</td>
+                  <td className="px-4 py-3">{order.price === 0 ? "Free for Adoption" : `৳ ${order.price}`}</td>
+                  <td className="px-4 py-3">{order.quantity || 1}</td>
+                  <td className="px-4 py-3">{order.address || "-"}</td>
+                  <td className="px-4 py-3">{order.date ? new Date(order.date).toLocaleDateString() : "-"}</td>
+                  <td className="px-4 py-3">{order.phone || "-"}</td>
+                  <td className="px-4 py-3">{order.email}</td>
+                  <td className="px-4 py-3 flex flex-wrap gap-2 mt-2">
+                    <button
+                      onClick={() => handleDelete(order._id)}
+                      className="cursor-pointer px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm md:text-base"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="10" className="text-center text-gray-400 py-6">
+                  No orders found
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

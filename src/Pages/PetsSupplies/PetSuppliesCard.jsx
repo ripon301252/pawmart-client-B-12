@@ -4,16 +4,34 @@ import { motion } from "framer-motion";
 
 const PetSuppliesCard = ({ store }) => {
   const navigate = useNavigate();
-  const { _id, image = "", name = "", category = "", price = 0, location = "" } =
-    store || {};
+  const {
+    _id,
+    image = "",
+    name = "",
+    category = "",
+    price = 0,
+    location = "",
+    email = "",
+  } = store || {};
+
+  // Format price
+  const formatPrice = (price) =>
+    price > 0
+      ? new Intl.NumberFormat("en-BD", {
+          style: "currency",
+          currency: "BDT",
+          maximumFractionDigits: 0,
+        }).format(price)
+      : "Free for Adoption";
 
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300 }}
-      className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer group"
+      className="rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col cursor-pointer group border border-gray-300 backdrop-blur-lg bg-white/10"
     >
-      <div className="overflow-hidden rounded-2xl h-56 sm:h-64 lg:h-60 p-5 border-1 border-gray-300">
+      {/* Image */}
+      <div className="overflow-hidden rounded-2xl h-56 sm:h-64 lg:h-60 p-5">
         <img
           src={image}
           alt={name}
@@ -21,16 +39,33 @@ const PetSuppliesCard = ({ store }) => {
         />
       </div>
 
-      <div className="p-5 flex flex-col gap-3">
-        <h3 className="text-lg sm:text-xl font-semibold text-gray-800">{name}</h3>
-        <p className="text-sm text-gray-500">{category}</p>
-        <p className="text-sm sm:text-base font-medium text-gray-700">
-          {price === 0 ? "Free for Adoption" : `৳ ${price}`}
+      {/* Card Info */}
+      <div className="p-6 flex flex-col gap-2 flex-grow">
+        <h3 className="text-2xl sm:text-lg font-semibold text-white">{name}</h3>
+        <p className="text-sm sm:text-base text-white">
+          <span className="font-bold">Category: </span>
+          {category}
         </p>
-        <p className="text-sm text-gray-500">{location}</p>
+        <p className="text-sm sm:text-base font-medium text-white">
+          <span>Price: </span>
+          {formatPrice(price)}
+        </p>
+        <p className="text-sm sm:text-base text-white">
+          <span className="font-bold">Location: </span>
+          {location}
+        </p>
+        {email && (
+          <p className="text-sm sm:text-base text-white">
+            <span className="font-bold">Owner Email: </span>
+            {email}
+          </p>
+        )}
+
         <button
-          onClick={() => navigate(`/product-details/${_id}`)}
-          className="mt-3 bg-[#5633e4] hover:bg-[#654dc7] text-white text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
+          onClick={() =>
+            navigate(`/${category.toLowerCase().replace(/\s/g, "")}/${_id}`)
+          }
+          className="mt-4 backdrop-blur-lg bg-white/10 text-white text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
         >
           See Details
         </button>

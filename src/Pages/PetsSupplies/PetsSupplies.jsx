@@ -55,8 +55,8 @@ const PetsSupplies = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 my-7">
       {/* Typewriter Header */}
-      <h2 className="text-4xl font-bold text-center mb-8 flex items-center justify-center gap-3">
-        <span className="text-4xl">🛒</span>
+      <h2 className="text-4xl text-white font-bold text-center my-12 flex items-center justify-center gap-3">
+        🛒
         <Typewriter
           words={["Our Collections", "Pets & Supplies"]}
           loop={true}
@@ -79,8 +79,8 @@ const PetsSupplies = () => {
               className={`flex items-center justify-center sm:justify-start gap-3 px-6 py-4 text-lg sm:text-xl font-semibold transition-all duration-300 cursor-pointer shadow-md
               ${
                 selectedCategory === cat.name
-                  ? "bg-[#5633e4] text-white rounded-full shadow-lg scale-105"
-                  : "bg-gray-300 hover:text-white border-1 border-gray-300 rounded-2xl hover:bg-gray-400"
+                  ? " text-white rounded-full border-gray-300  shadow-lg scale-105 backdrop-blur-lg bg-white/10"
+                  : "backdrop-blur-lg bg-white/10 text-white border border-gray-300 rounded-2xl hover:bg-gray-400"
               }`}
             >
               <Icon className="text-2xl" />
@@ -90,20 +90,38 @@ const PetsSupplies = () => {
         })}
       </div>
 
-      {/* Search by Name */}
-      <div className="my-5 flex justify-center ">
-        <input
-          type="text"
-          placeholder="Search by name..."
-          className="border p-2 rounded-md w-full sm:w-1/2"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+      {/* Search Bar with Icon */}
+      <div className="my-10 flex justify-center">
+        <div className="relative w-full sm:w-1/2">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:border-[#7a68c0] focus:ring-1 focus:ring-[#7a68c0] transition-all duration-300 outline-none backdrop-blur-lg bg-white/10 text-white placeholder-white"
+          />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1116.65 2.35a7.5 7.5 0 010 14.3z"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
 
       {/* Stores Grid */}
       {filteredStores.length ? (
-        <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
           {filteredStores.map((store) => (
             <PetSuppliesCard key={store._id} store={store} />
           ))}

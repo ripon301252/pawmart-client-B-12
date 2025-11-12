@@ -3,13 +3,15 @@ import { toast } from "react-hot-toast";
 
 const OrderModal = ({ item, userEmail, onClose }) => {
   const [quantity, setQuantity] = useState(1);
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleConfirmOrder = async () => {
-    if (!userEmail) {
-      toast.error("You must be logged in to place an order");
-      return;
-    }
+    if (!userEmail) return toast.error("You must be logged in to place an order");
+    if (!address || !phone || !date)
+      return toast.error("Please fill in all required fields!");
 
     setLoading(true);
     try {
@@ -21,6 +23,10 @@ const OrderModal = ({ item, userEmail, onClose }) => {
         location: item.location,
         email: userEmail,
         quantity,
+        address,
+        phone,
+        date,
+        orderTime: new Date(),
       };
 
       const res = await fetch("http://localhost:5000/orders", {
@@ -30,9 +36,8 @@ const OrderModal = ({ item, userEmail, onClose }) => {
       });
 
       const data = await res.json();
-
       if (res.ok) {
-        toast.success("Order placed successfully ✅");
+        toast.success(" Order placed successfully!");
         onClose();
       } else {
         toast.error(data.message || "Failed to place order");
@@ -46,76 +51,102 @@ const OrderModal = ({ item, userEmail, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-hidden flex flex-col">
-
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 px-3 backdrop-blur-sm">
+      <div className="bg-white/20 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl w-full max-w-lg sm:max-w-md md:max-w-xl overflow-hidden animate-scaleIn">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#5633e4] to-[#654dc7] text-white p-4 text-center">
-          <h2 className="text-2xl font-bold">Confirm Your Order</h2>
-          <p className="text-sm mt-1">Review your product details before ordering</p>
+        <div className="bg-white/10 backdrop-blur-md text-white p-3 sm:p-4 text-center border-b border-white/20">
+          <h2 className="text-lg sm:text-xl font-bold">Confirm Your Order</h2>
+          <p className="text-xs sm:text-sm opacity-80">
+            Review and complete your order details below
+          </p>
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col lg:flex-row gap-4">
-          
-          {/* Left: Info + Quantity + Confirm Button */}
-          <div className="flex-1 space-y-3">
-            <p><strong>Product:</strong> {item.name}</p>
-            <p><strong>Category:</strong> {item.category}</p>
+        <div className="p-4 flex flex-col md:flex-row gap-4 max-h-[75vh] overflow-y-auto">
+          {/* Left Side */}
+          <div className="flex-1 space-y-2 text-sm sm:text-base text-white">
+            <p>
+              <strong>Product:</strong> {item.name}
+            </p>
+            <p>
+              <strong>Category:</strong> {item.category}
+            </p>
             <p>
               <strong>Price:</strong>{" "}
               {item.price === 0 ? (
-                <span className="text-green-600 font-semibold">Free for Adoption 🐾</span>
+                <span className="text-green-400 font-semibold">
+                  Free for Adoption 🐾
+                </span>
               ) : (
-                <span className="text-[#5633e4] font-semibold">৳ {item.price}</span>
+                <span className="text-[#e0e0ff] font-semibold">
+                  ৳ {item.price}
+                </span>
               )}
             </p>
-            <p><strong>Location:</strong> {item.location}</p>
-            <p><strong>Owner Email:</strong> {item.email || "Not Provided"}</p>
+            <p>
+              <strong>Location:</strong> {item.location}
+            </p>
 
-            {/* Quantity */}
-            <div>
-              <label className="block mb-1 font-medium">Quantity:</label>
+            {/* Inputs */}
+            <div className="space-y-2">
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Your Address"
+                className="w-full bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#5633e4] outline-none backdrop-blur-sm"
+              />
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone Number"
+                className="w-full bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#5633e4] outline-none backdrop-blur-sm"
+              />
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#5633e4] outline-none backdrop-blur-sm"
+              />
               <input
                 type="number"
                 min="1"
                 value={quantity}
                 onChange={(e) => setQuantity(Number(e.target.value))}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+                className="w-full bg-white/10 text-white placeholder-white/70 border border-white/30 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#5633e4] outline-none backdrop-blur-sm"
               />
             </div>
 
-            {/* Confirm Button */}
             <button
               onClick={handleConfirmOrder}
               disabled={loading}
-              className={`w-full mt-3 py-3 rounded-lg font-semibold text-white transition-transform transform hover:scale-105 cursor-pointer ${
+              className={`w-full mt-3 py-2.5 rounded-lg font-semibold text-white transition-transform transform hover:scale-105 ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-[#5633e4] to-[#654dc7] hover:opacity-90"
+                  : "bg-[#5b46b1] hover:bg-[#654dc7] hover:opacity-90"
               }`}
             >
               {loading ? "Placing Order..." : "Confirm Order"}
             </button>
           </div>
 
-          {/* Right: Product Image + Close Button */}
-          <div className="flex-shrink-0 w-full sm:w-48 lg:w-56 flex flex-col items-center gap-3 group">
-            <div className="w-full h-48 sm:h-56 lg:h-60 rounded-xl overflow-hidden shadow-md transition-transform duration-300 transform group-hover:scale-105 group-hover:shadow-xl">
+          {/* Right Side */}
+          <div className="flex flex-col items-center gap-2 w-full md:w-48">
+            <div className="w-full h-40 rounded-xl overflow-hidden shadow-md">
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full h-full object-cover"
               />
             </div>
             <button
               onClick={onClose}
-              className="px-6 py-3 bg-[#5633e4] hover:bg-[#6044cf] text-white rounded-lg font-semibold transition transform hover:scale-105 w-full text-center mt-5 cursor-pointer"
+              className="w-full py-2 bg-[#5b46b1] hover:bg-[#654dc7] text-white rounded-lg font-medium text-sm transition-transform transform hover:scale-105 mt-1"
             >
               Cancel
             </button>
           </div>
-
         </div>
       </div>
     </div>

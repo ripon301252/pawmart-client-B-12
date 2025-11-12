@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="flex items-center gap-2 mb-2">
             <img src={Img} alt="PawMart Logo" className="w-10 h-10" />
             <a className="text-2xl font-bold">
-            <span className="text-black">Paw</span>Mart
+            <span className="text-black">Paw</span><span className="text-orange-500">Mart</span> 
             </a>
           </div>
           <p className="max-w-xs mb-3">

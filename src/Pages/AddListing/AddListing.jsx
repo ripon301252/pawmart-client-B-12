@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
+import { Typewriter } from "react-simple-typewriter";
 
 const AddListing = () => {
   const { user } = useContext(AuthContext);
@@ -59,8 +60,17 @@ const AddListing = () => {
   return (
     <div className="max-w-xl mx-auto p-4 sm:p-6 ">
       <title>PawMart - Add Listing</title>
-      <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white text-center">
-        Add New Listing
+      <h2 className="text-4xl sm:text-3xl font-bold mb-4 text-white text-center">
+        🐾
+        <Typewriter
+          words={["Add New Listing"]}
+          loop={true}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
 
       <form
@@ -162,7 +172,7 @@ const AddListing = () => {
 
         <button
           type="submit"
-          className="mt-2 bg-gradient-to-r from-[#5633e4] to-[#654dc7] text-white py-2 rounded-md font-semibold hover:opacity-90 transition-transform transform hover:scale-105"
+          className="mt-2 backdrop-blur-lg bg-white/10 text-white py-2 rounded-md font-semibold hover:opacity-90 transition-transform transform hover:scale-105 cursor-pointer"
         >
           Add Listing
         </button>
