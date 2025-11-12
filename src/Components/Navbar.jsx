@@ -6,12 +6,14 @@ import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
 import Img from "../assets/logo.png";
 import ThemeToggle from "./ThemeToggle";
+import { useTheme } from 'next-themes';
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [avatarDropdown, setAvatarDropdown] = useState(false);
   const [showName, setShowName] = useState(false);
+  const { theme, setTheme } = useTheme()
 
   const linkClass = ({ isActive }) =>
     `px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
@@ -77,8 +79,9 @@ const Navbar = () => {
 
           {/* Desktop Theme + Avatar */}
           <div className="hidden md:flex items-center gap-4 relative">
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-md">
-              <ThemeToggle />
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-md cursor-pointer">
+              <span className="mr-5">{theme}</span>
+               <span onClick={()=> setTheme(theme === "dark" ? "light" : "dark")} className=''>theme</span>
             </div>
 
             {user ? (
@@ -86,30 +89,30 @@ const Navbar = () => {
                 <img
                   src={user?.photoURL}
                   alt={user?.displayName || "User Avatar"}
-                  className="w-10 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600 shadow-md cursor-pointer hover:ring-2 hover:ring-[#5633e4] transition-all duration-300"
+                  className="w-10 h-10 rounded-full border-2  shadow-md cursor-pointer hover:ring-2 hover:ring-[#5633e4] transition-all duration-300"
                   onMouseEnter={() => setShowName(true)}
                   onMouseLeave={() => setShowName(false)}
                   onClick={() => setAvatarDropdown(!avatarDropdown)}
                 />
 
                 {showName && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-12 bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-md">
+                  <div className="absolute left-1/2 -translate-x-1/2 top-[52px] text-center bg-gray-800 text-white text-xs px-2 py-1 rounded-b shadow-md">
                     {user.displayName || "User"}
                   </div>
                 )}
 
                 {avatarDropdown && (
-                  <div className="absolute -right-12 mt-36 w-36 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg flex flex-col z-50 overflow-hidden border border-gray-200 dark:border-gray-700">
+                  <div className="absolute -right-14 mt-36 w-36 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg flex flex-col z-50 overflow-hidden border border-gray-200 dark:border-gray-800">
                     <Link
                       to="/myProfile"
-                      className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium transition-colors"
+                      className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium transition-colors text-center"
                       onClick={() => setAvatarDropdown(false)}
                     >
                       My Profile
                     </Link>
                     <button
                       onClick={handleSignOut}
-                      className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-left"
+                      className="px-4 py-2 text-gray-700 text-center cursor-pointer dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium"
                     >
                       Logout
                     </button>
@@ -129,8 +132,9 @@ const Navbar = () => {
 
           {/* Mobile Menu */}
           <div className="md:hidden flex items-center gap-2">
-            <div className="bg-gray-200 dark:bg-gray-700 rounded-full p-[2px] sm:p-1">
-              <ThemeToggle />
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-md">
+              <span>{theme}</span>
+               <span onClick={()=> setTheme(theme === "dark" ? "light" : "dark")} className=''>theme</span>
             </div>
             <button
               onClick={() => setOpen(!open)}

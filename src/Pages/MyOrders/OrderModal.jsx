@@ -121,7 +121,7 @@ const OrderModal = ({ item, userEmail, onClose }) => {
             <button
               onClick={handleConfirmOrder}
               disabled={loading}
-              className={`w-full mt-3 py-2.5 rounded-lg font-semibold text-white transition-transform transform hover:scale-105 ${
+              className={`w-full mt-3 py-2.5 rounded-lg cursor-pointer font-semibold text-white transition-transform transform hover:scale-105 ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-[#5b46b1] hover:bg-[#654dc7] hover:opacity-90"
@@ -142,7 +142,7 @@ const OrderModal = ({ item, userEmail, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="w-full py-2 bg-[#5b46b1] hover:bg-[#654dc7] text-white rounded-lg font-medium text-sm transition-transform transform hover:scale-105 mt-1"
+              className="w-full py-2 bg-[#5b46b1] hover:bg-[#654dc7] text-white rounded-lg font-medium text-sm transition-transform transform hover:scale-105 mt-1 cursor-pointer"
             >
               Cancel
             </button>

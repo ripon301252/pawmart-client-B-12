@@ -63,7 +63,7 @@ const AddListing = () => {
       <h2 className="text-4xl sm:text-3xl font-bold mb-4 text-white text-center">
         🐾
         <Typewriter
-          words={["Add New Listing"]}
+          words={[" Add New Listing"]}
           loop={true}
           cursor
           cursorStyle="_"

@@ -31,7 +31,7 @@ const SlideBanner = () => {
               <p className="text-white/90 text-sm sm:text-lg md:text-xl max-w-2xl mb-5">
                 Adopt adorable pets and shop premium pet products in one place!
               </p>
-              <button className="bg-[#5633e4] hover:bg-[#654dc7] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-md transition duration-300 text-sm sm:text-base">
+              <button className="bg-[#644aca] hover:bg-[#482db4] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-md transition duration-300 text-sm sm:text-base">
                 Adopt Now
               </button>
             </div>
@@ -41,14 +41,14 @@ const SlideBanner = () => {
               <a
                 href="#slide3"
                 onClick={(e) => handleSlide(e, "#slide3")}
-                className="btn btn-circle bg-white/20 hover:bg-cyan-500 text-white border-none"
+                className="btn btn-circle bg-white/20 hover:bg-[#644aca] text-white border-none"
               >
                 ❮
               </a>
               <a
                 href="#slide2"
                 onClick={(e) => handleSlide(e, "#slide2")}
-                className="btn btn-circle bg-white/20 hover:bg-cyan-500 text-white border-none"
+                className="btn btn-circle bg-white/20 hover:bg-[#644aca] text-white border-none"
               >
                 ❯
               </a>
@@ -69,7 +69,7 @@ const SlideBanner = () => {
               <p className="text-white/90 text-sm sm:text-lg md:text-xl max-w-2xl mb-5">
                 Find premium food, toys, and care products for your pets.
               </p>
-              <button className="bg-[#5633e4] hover:bg-[#654dc7] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-md transition duration-300 text-sm sm:text-base">
+              <button className="bg-[#644aca] hover:bg-[#482db4] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-md transition duration-300 text-sm sm:text-base">
                 Shop Now
               </button>
             </div>
@@ -78,14 +78,14 @@ const SlideBanner = () => {
               <a
                 href="#slide1"
                 onClick={(e) => handleSlide(e, "#slide1")}
-                className="btn btn-circle bg-white/20 hover:bg-cyan-500 text-white border-none"
+                className="btn btn-circle bg-white/20 hover:bg-[#644aca] text-white border-none"
               >
                 ❮
               </a>
               <a
                 href="#slide3"
                 onClick={(e) => handleSlide(e, "#slide3")}
-                className="btn btn-circle bg-white/20 hover:bg-cyan-500 text-white border-none"
+                className="btn btn-circle bg-white/20 hover:bg-[#644aca] text-white border-none"
               >
                 ❯
               </a>
@@ -106,7 +106,7 @@ const SlideBanner = () => {
               <p className="text-white/90 text-sm sm:text-lg md:text-xl max-w-2xl mb-5">
                 Keep your pets happy and healthy with PawMart’s expert tips.
               </p>
-              <button className="bg-[#5633e4] hover:bg-[#654dc7] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-md transition duration-300 text-sm sm:text-base">
+              <button className="bg-[#644aca] hover:bg-[#482db4] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-md transition duration-300 text-sm sm:text-base">
                 Learn More
               </button>
             </div>
@@ -115,14 +115,14 @@ const SlideBanner = () => {
               <a
                 href="#slide2"
                 onClick={(e) => handleSlide(e, "#slide2")}
-                className="btn btn-circle bg-white/20 hover:bg-cyan-500 text-white border-none"
+                className="btn btn-circle bg-white/20 hover:bg-[#644aca] text-white border-none"
               >
                 ❮
               </a>
               <a
                 href="#slide1"
                 onClick={(e) => handleSlide(e, "#slide1")}
-                className="btn btn-circle bg-white/20 hover:bg-cyan-500 text-white border-none"
+                className="btn btn-circle bg-white/20 hover:bg-[#644aca] text-white border-none"
               >
                 ❯
               </a>

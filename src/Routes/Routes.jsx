@@ -12,6 +12,7 @@ import MyListings from "../Pages/MyListing/MyListings";
 import Error from "../Pages/Error404/Error";
 import ProductDetails from "../Pages/Details/ProductDetails";
 import EditListing from "../Pages/MyListing/EditListing";
+import ResetPassword from "../Pages/Auth/ResetPassword";
 
 
 export const router = createBrowserRouter([
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         Component: Register,
+      },
+      {
+        path: "/forgotPassword",
+        Component: ResetPassword 
       }
       
     ],
