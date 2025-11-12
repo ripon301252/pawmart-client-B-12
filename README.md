@@ -1,6 +1,6 @@
 # 🐾 PawMart
 
-**Live Site:** [https://paw-mart.web.app](https://paw-mart.web.app)
+**Live Site:** [https://paw-mart.web.app](https://pawmart-cf02df.netlify.app/)
 
 ---
 
