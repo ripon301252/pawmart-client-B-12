@@ -1,7 +1,7 @@
 # 🐾 PawMart (Client / UI Side)
 
 ## 📍 Project Name: PawMart
-### 🌐 Live Site Link: https://paw-mart.web.app
+### 🌐 Live Site Link: https://pawmart-cf02df.netlify.app/petsSupplies
 
 # 🔹 5 Key Features:
 
