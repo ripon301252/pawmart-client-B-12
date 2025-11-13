@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import { Typewriter } from "react-simple-typewriter";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -26,7 +28,7 @@ const MyOrders = () => {
       });
   }, [user?.email]);
 
-  // Delete Order with SweetAlert2
+  // Delete Order
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -58,6 +60,46 @@ const MyOrders = () => {
     }
   };
 
+  // 🧾 Download PDF Report
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text("PawMart - My Orders Report", 14, 10);
+
+    const tableColumn = [
+      "Product",
+      "Category",
+      "Price",
+      "Qty",
+      "Address",
+      "Date",
+      "Phone",
+      "Email",
+    ];
+    const tableRows = [];
+
+    orders.forEach((order) => {
+      const orderData = [
+        order.name,
+        order.category,
+        order.price === 0 ? "Free for Adoption" : `৳ ${order.price}`,
+        order.quantity || 1,
+        order.address || "-",
+        order.date ? new Date(order.date).toLocaleDateString() : "-",
+        order.phone || "-",
+        order.email,
+      ];
+      tableRows.push(orderData);
+    });
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+    });
+
+    doc.save("My_Orders_Report.pdf");
+  };
+
   if (loading)
     return (
       <p className="text-center mt-10 text-lg font-semibold text-white">
@@ -70,7 +112,7 @@ const MyOrders = () => {
       <title>PawMart - My Orders</title>
 
       {/* Heading */}
-      <h2 className="text-4xl md:text-4xl font-bold pb-12 text-center text-white flex justify-center items-center gap-3">
+      <h2 className="text-4xl md:text-4xl font-bold pb-8 text-center text-white flex justify-center items-center gap-3">
         🐾
         <Typewriter
           words={["My Orders"]}
@@ -82,6 +124,16 @@ const MyOrders = () => {
           delaySpeed={1000}
         />
       </h2>
+
+      {/* 🧾 Download Report Button */}
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={handleDownloadPDF}
+          className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+        >
+          Download Report (PDF)
+        </button>
+      </div>
 
       {/* Responsive Table */}
       <div className="overflow-x-auto shadow-lg rounded-xl">
