@@ -14,7 +14,9 @@ const MyListings = () => {
     if (!user?.email) return;
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/stores?email=${user.email}`);
+      const res = await fetch(
+        `https://pawmart-server-seven.vercel.app/stores?email=${user.email}`
+      );
       const data = await res.json();
       setListings(data);
     } catch (err) {
@@ -44,9 +46,12 @@ const MyListings = () => {
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(`http://localhost:5000/stores/${id}`, {
-          method: "DELETE",
-        });
+        const res = await fetch(
+          `https://pawmart-server-seven.vercel.app/stores/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         if (!res.ok) throw new Error("Failed to delete listing");
 
         setListings((prev) => prev.filter((item) => item._id !== id));
@@ -178,7 +183,8 @@ const MyListings = () => {
             />
             <div className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-200">
               <span>
-                Price: {listing.price > 0 ? `৳ ${listing.price}` : "Free Adoption"}
+                Price:{" "}
+                {listing.price > 0 ? `৳ ${listing.price}` : "Free Adoption"}
               </span>
               <span>Location: {listing.location}</span>
             </div>

@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/stores/details/${id}`)
+    fetch(`https://pawmart-server-seven.vercel.app/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
