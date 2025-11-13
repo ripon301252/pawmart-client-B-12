@@ -15,7 +15,7 @@ const MyListings = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://pawmart-server-gamma.vercel.app/stores?email=${user.email}`
+        `http://localhost:5000/stores?email=${user.email}`
       );
       const data = await res.json();
       setListings(data);
@@ -39,12 +39,9 @@ const MyListings = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch(
-        `https://pawmart-server-gamma.vercel.app/stores/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`http://localhost:5000/stores/${id}`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error("Failed to delete listing");
       toast.success("Listing deleted successfully!");
       setListings((prev) => prev.filter((item) => item._id !== id));
@@ -102,7 +99,9 @@ const MyListings = () => {
             {listings.map((listing, index) => (
               <tr
                 key={listing._id}
-                className="even:bg-white/5 odd:bg-white/10 text-white transition-colors"
+                className={`transition-colors text-white text-sm md:text-base hover:bg-white/20 ${
+                    index % 2 === 0 ? "bg-white/5" : "bg-white/10"
+                  }`}
               >
                 <td className="px-4 py-3">{index + 1}</td>
                 <td className="px-4 py-3">

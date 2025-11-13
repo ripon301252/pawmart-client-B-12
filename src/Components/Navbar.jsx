@@ -5,15 +5,13 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
 import Img from "../assets/logo.png";
-import ThemeToggle from "./ThemeToggle";
-import { useTheme } from 'next-themes';
+import ThemeToggle from "./Theme/ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [avatarDropdown, setAvatarDropdown] = useState(false);
   const [showName, setShowName] = useState(false);
-  const { theme, setTheme } = useTheme()
 
   const linkClass = ({ isActive }) =>
     `px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
@@ -55,10 +53,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-500">
+    <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex justify-between h-14 sm:h-16 items-center">
-
           {/* Logo */}
           <Link
             to="/"
@@ -79,9 +76,8 @@ const Navbar = () => {
 
           {/* Desktop Theme + Avatar */}
           <div className="hidden md:flex items-center gap-4 relative">
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-md cursor-pointer">
-              <span className="mr-5">{theme}</span>
-               <span onClick={()=> setTheme(theme === "dark" ? "light" : "dark")} className=''>theme</span>
+            <div className="">
+              <ThemeToggle />
             </div>
 
             {user ? (
@@ -89,7 +85,7 @@ const Navbar = () => {
                 <img
                   src={user?.photoURL}
                   alt={user?.displayName || "User Avatar"}
-                  className="w-10 h-10 rounded-full border-2  shadow-md cursor-pointer hover:ring-2 hover:ring-[#5633e4] transition-all duration-300"
+                  className="w-10 h-10 rounded-full border-2 shadow-md cursor-pointer hover:ring-2 hover:ring-[#5633e4] transition-all duration-300"
                   onMouseEnter={() => setShowName(true)}
                   onMouseLeave={() => setShowName(false)}
                   onClick={() => setAvatarDropdown(!avatarDropdown)}
@@ -122,7 +118,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/signin"
-                className="flex items-center gap-1 backdrop-blur-lg bg-white/10 text-white px-3 py-2 rounded-lg hover:scale-105 transition-transform font-semibold shadow-md"
+                className="flex items-center gap-1 backdrop-blur-lg bg-white/10 dark:text-white px-3 py-2 rounded-lg hover:scale-105 transition-transform font-semibold shadow-md"
               >
                 <IoLogInOutline />
                 LogIn
@@ -132,10 +128,8 @@ const Navbar = () => {
 
           {/* Mobile Menu */}
           <div className="md:hidden flex items-center gap-2">
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-full p-1 shadow-md">
-              <span>{theme}</span>
-               <span onClick={()=> setTheme(theme === "dark" ? "light" : "dark")} className=''>theme</span>
-            </div>
+            <ThemeToggle />
+
             <button
               onClick={() => setOpen(!open)}
               className="text-gray-700 dark:text-gray-200 focus:outline-none"

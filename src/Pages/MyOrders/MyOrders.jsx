@@ -11,9 +11,7 @@ const MyOrders = () => {
   // Fetch Orders
   useEffect(() => {
     if (!user?.email) return;
-    fetch(
-      `https://pawmart-server-gamma.vercel.app/myOrders?email=${user.email}`
-    )
+    fetch(`http://localhost:5000/myOrders?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -31,10 +29,9 @@ const MyOrders = () => {
     if (!window.confirm("Are you sure you want to remove this order?")) return;
 
     try {
-      const res = await fetch(
-        `https://pawmart-server-gamma.vercel.app/myOrders/${id}`,
-        { method: "DELETE" }
-      );
+      const res = await fetch(`http://localhost:5000/myOrders/${id}`, {
+        method: "DELETE",
+      });
       if (!res.ok) throw new Error("Failed to delete order");
       toast.success("Order removed successfully!");
       setOrders((prev) => prev.filter((order) => order._id !== id));

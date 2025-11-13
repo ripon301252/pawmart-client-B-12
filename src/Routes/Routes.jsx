@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
-    errorElement: <Error />,
+    // errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -60,9 +60,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://pawmart-server-gamma.vercel.app/${params.category}/${params.id}`
-          ),
+          fetch(`http://localhost:5000/${params.category}/${params.id}`),
       },
       {
         path: "/myProfile",

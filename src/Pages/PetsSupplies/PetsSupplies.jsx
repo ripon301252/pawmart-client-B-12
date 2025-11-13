@@ -26,7 +26,7 @@ const PetsSupplies = () => {
 
   // Fetch all stores
   useEffect(() => {
-    fetch("https://pawmart-server-gamma.vercel.app/stores")
+    fetch("http://localhost:5000/stores")
       .then((res) => res.json())
       .then((data) => {
         setStores(data);

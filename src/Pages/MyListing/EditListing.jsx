@@ -25,7 +25,7 @@ const EditListing = () => {
 
   // Fetch listing
   useEffect(() => {
-    fetch(`https://pawmart-server-gamma.vercel.app/stores/details/${id}`)
+    fetch(`http://localhost:5000/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -68,14 +68,11 @@ const EditListing = () => {
     }
 
     try {
-      const res = await fetch(
-        `https://pawmart-server-gamma.vercel.app/stores/${id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch(`http://localhost:5000/stores/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       if (!res.ok) throw new Error("Failed to update listing");
 

@@ -76,14 +76,14 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center md:min-h-screen py-5  bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 px-4">
+    <div className="flex justify-center items-center md:min-h-screen py-5  bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 px-4 ">
       <title>PawMart - SignUp</title>
       <div className="card w-full max-w-md backdrop-blur-lg bg-white/10 shadow-2xl rounded-2xl p-6 border border-gray-200">
         <h1 className="text-3xl font-bold text-center mb-2 text-white">
           Create Account
         </h1>
         <p className="text-center text-white mb-4">
-          Join <span className="font-semibold text-pink-600">KidsToy</span>{" "}
+          Join <span className="font-semibold text-pink-600">PawMart</span>{" "}
           today!
         </p>
 
