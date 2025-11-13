@@ -81,7 +81,7 @@ const MyProfile = () => {
 
           <button
             type="submit"
-            className="btn bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold w-full hover:opacity-90"
+            className="btn bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold w-full hover:opacity-90 outline-none border-none"
           >
             Update Profile
           </button>

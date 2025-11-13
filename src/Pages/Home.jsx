@@ -1,6 +1,5 @@
 
 import SlideBanner from "../Components/SlideBanner";
-// import Categories from "./Categories/Categories";
 import WhyAdopt from "./ExtraSection/WhyAdopt";
 import MeetOurPetHeroes from "./ExtraSection/MeetOurPetHeroes";
 import RecentList from "../Components/RecentList";

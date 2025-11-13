@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 import { Typewriter } from "react-simple-typewriter";
 
 const MyOrders = () => {
@@ -19,25 +19,37 @@ const MyOrders = () => {
       })
       .catch((err) => {
         console.error(err);
-        toast.error("Failed to load orders!");
+        Swal.fire("Error", "Failed to load orders!", "error");
         setLoading(false);
       });
   }, [user?.email]);
 
-  // Delete Order
+  // Delete Order with SweetAlert2
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to remove this order?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to remove this order?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove it!",
+      cancelButtonText: "Cancel",
+    });
 
-    try {
-      const res = await fetch(`http://localhost:5000/myOrders/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error("Failed to delete order");
-      toast.success("Order removed successfully!");
-      setOrders((prev) => prev.filter((order) => order._id !== id));
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to remove order!");
+    if (result.isConfirmed) {
+      try {
+        const res = await fetch(`http://localhost:5000/myOrders/${id}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) throw new Error("Failed to delete order");
+
+        setOrders((prev) => prev.filter((order) => order._id !== id));
+        Swal.fire("Deleted!", "Your order has been removed.", "success");
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error!", "Failed to remove order.", "error");
+      }
     }
   };
 
@@ -53,7 +65,7 @@ const MyOrders = () => {
       <title>PawMart - My Orders</title>
 
       {/* Heading */}
-      <h2 className="text-4xl md:text-4xl font-bold pb-12  text-center text-white flex justify-center items-center gap-3">
+      <h2 className="text-4xl md:text-4xl font-bold pb-12 text-center text-white flex justify-center items-center gap-3">
         🐾
         <Typewriter
           words={["My Orders"]}

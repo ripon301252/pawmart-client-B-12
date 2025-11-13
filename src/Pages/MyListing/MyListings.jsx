@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { Link } from "react-router";
-import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 import { Typewriter } from "react-simple-typewriter";
 
 const MyListings = () => {
@@ -14,14 +14,12 @@ const MyListings = () => {
     if (!user?.email) return;
     try {
       setLoading(true);
-      const res = await fetch(
-        `http://localhost:5000/stores?email=${user.email}`
-      );
+      const res = await fetch(`http://localhost:5000/stores?email=${user.email}`);
       const data = await res.json();
       setListings(data);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to fetch listings");
+      Swal.fire("Error", "Failed to fetch listings!", "error");
     } finally {
       setLoading(false);
     }
@@ -31,23 +29,32 @@ const MyListings = () => {
     fetchListings();
   }, [user?.email]);
 
-  // Delete listing
+  // Delete listing with SweetAlert
   const handleDelete = async (id) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this listing?"
-    );
-    if (!confirm) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to delete this listing?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    });
 
-    try {
-      const res = await fetch(`http://localhost:5000/stores/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error("Failed to delete listing");
-      toast.success("Listing deleted successfully!");
-      setListings((prev) => prev.filter((item) => item._id !== id));
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to delete listing!");
+    if (result.isConfirmed) {
+      try {
+        const res = await fetch(`http://localhost:5000/stores/${id}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) throw new Error("Failed to delete listing");
+
+        setListings((prev) => prev.filter((item) => item._id !== id));
+        Swal.fire("Deleted!", "Your listing has been deleted.", "success");
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error!", "Failed to delete listing.", "error");
+      }
     }
   };
 
@@ -100,8 +107,8 @@ const MyListings = () => {
               <tr
                 key={listing._id}
                 className={`transition-colors text-white text-sm md:text-base hover:bg-white/20 ${
-                    index % 2 === 0 ? "bg-white/5" : "bg-white/10"
-                  }`}
+                  index % 2 === 0 ? "bg-white/5" : "bg-white/10"
+                }`}
               >
                 <td className="px-4 py-3">{index + 1}</td>
                 <td className="px-4 py-3">
@@ -171,8 +178,7 @@ const MyListings = () => {
             />
             <div className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-200">
               <span>
-                Price:{" "}
-                {listing.price > 0 ? `৳ ${listing.price}` : "Free Adoption"}
+                Price: {listing.price > 0 ? `৳ ${listing.price}` : "Free Adoption"}
               </span>
               <span>Location: {listing.location}</span>
             </div>

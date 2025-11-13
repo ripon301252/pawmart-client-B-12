@@ -66,6 +66,7 @@ const Register = () => {
           });
       })
       .catch((err) => {
+        setError(err.message)
         toast.error(err.message);
       });
   };
