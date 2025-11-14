@@ -25,7 +25,7 @@ const EditListing = () => {
 
   // Fetch listing
   useEffect(() => {
-    fetch(`https://pawmart-server-seven.vercel.app/stores/details/${id}`)
+    fetch(`https://pawmart-server-psi.vercel.app/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -69,7 +69,7 @@ const EditListing = () => {
 
     try {
       const res = await fetch(
-        `https://pawmart-server-seven.vercel.app/stores/${id}`,
+        `https://pawmart-server-psi.vercel.app/stores/${id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

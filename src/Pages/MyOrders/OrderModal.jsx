@@ -30,14 +30,11 @@ const OrderModal = ({ item, userEmail, onClose }) => {
         orderTime: new Date(),
       };
 
-      const res = await fetch(
-        "https://pawmart-server-seven.vercel.app/orders",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(orderData),
-        }
-      );
+      const res = await fetch("https://pawmart-server-psi.vercel.app/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
 
       const data = await res.json();
       if (res.ok) {

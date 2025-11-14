@@ -19,7 +19,7 @@ const RecentList = () => {
   // Fetch stores by selected category
   useEffect(() => {
     fetch(
-      `https://pawmart-server-seven.vercel.app/stores-list?category=${encodeURIComponent(
+      `https://pawmart-server-psi.vercel.app/stores-list?category=${encodeURIComponent(
         selectedCategory
       )}`
     )

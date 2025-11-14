@@ -42,14 +42,11 @@ const AddListing = () => {
       return;
     }
     try {
-      const res = await fetch(
-        "https://pawmart-server-seven.vercel.app/stores",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch("https://pawmart-server-psi.vercel.app/stores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
       if (!res.ok) throw new Error("Failed to add listing");
       await res.json();
       toast.success("Listing added successfully!");

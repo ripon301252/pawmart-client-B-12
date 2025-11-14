@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://pawmart-server-seven.vercel.app/${params.category}/${params.id}`
+            `https://pawmart-server-psi.vercel.app/${params.category}/${params.id}`
           ),
       },
       {

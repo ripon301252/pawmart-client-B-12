@@ -3,7 +3,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import { Typewriter } from "react-simple-typewriter";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -13,9 +13,8 @@ const MyOrders = () => {
   // Fetch Orders
   useEffect(() => {
     if (!user?.email) return;
-    fetch(
-      `https://pawmart-server-seven.vercel.app/myOrders?email=${user.email}`
-    )
+
+    fetch(`https://pawmart-server-psi.vercel.app/myOrders?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -44,11 +43,12 @@ const MyOrders = () => {
     if (result.isConfirmed) {
       try {
         const res = await fetch(
-          `https://pawmart-server-seven.vercel.app/myOrders/${id}`,
+          `https://pawmart-server-psi.vercel.app/myOrders/${id}`,
           {
             method: "DELETE",
           }
         );
+
         if (!res.ok) throw new Error("Failed to delete order");
 
         setOrders((prev) => prev.filter((order) => order._id !== id));
@@ -60,7 +60,7 @@ const MyOrders = () => {
     }
   };
 
-  // 🧾 Download PDF Report
+  // 📄 Download PDF Report
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.text("PawMart - My Orders Report", 14, 10);
@@ -75,10 +75,11 @@ const MyOrders = () => {
       "Phone",
       "Email",
     ];
+
     const tableRows = [];
 
     orders.forEach((order) => {
-      const orderData = [
+      tableRows.push([
         order.name,
         order.category,
         order.price === 0 ? "Free for Adoption" : `৳ ${order.price}`,
@@ -87,11 +88,10 @@ const MyOrders = () => {
         order.date ? new Date(order.date).toLocaleDateString() : "-",
         order.phone || "-",
         order.email,
-      ];
-      tableRows.push(orderData);
+      ]);
     });
 
-    doc.autoTable({
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20,
@@ -125,7 +125,7 @@ const MyOrders = () => {
         />
       </h2>
 
-      {/* 🧾 Download Report Button */}
+      {/* PDF Button */}
       <div className="flex justify-end mb-4">
         <button
           onClick={handleDownloadPDF}
@@ -135,7 +135,7 @@ const MyOrders = () => {
         </button>
       </div>
 
-      {/* Responsive Table */}
+      {/* Table */}
       <div className="overflow-x-auto shadow-lg rounded-xl">
         <table className="min-w-full border-collapse text-left">
           <thead className="bg-primary text-white text-base md:text-lg font-semibold">
@@ -152,6 +152,7 @@ const MyOrders = () => {
               <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
+
           <tbody>
             {orders.length > 0 ? (
               orders.map((order, index) => (
@@ -178,6 +179,7 @@ const MyOrders = () => {
                   </td>
                   <td className="px-4 py-3">{order.phone || "-"}</td>
                   <td className="px-4 py-3">{order.email}</td>
+
                   <td className="px-4 py-3 flex flex-wrap gap-2 mt-2">
                     <button
                       onClick={() => handleDelete(order._id)}
