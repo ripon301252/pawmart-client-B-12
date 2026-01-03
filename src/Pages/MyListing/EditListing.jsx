@@ -18,6 +18,8 @@ const EditListing = () => {
     image: "",
     date: "",
     email: user?.email || "",
+    status: "Available",  // ✅ added
+    rating: 0,            // ✅ added
   });
 
   const [isPets, setIsPets] = useState(true);
@@ -25,7 +27,7 @@ const EditListing = () => {
 
   // Fetch listing
   useEffect(() => {
-    fetch(`https://pawmart-server-psi.vercel.app/stores/details/${id}`)
+    fetch(`http://localhost:5000/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -37,6 +39,8 @@ const EditListing = () => {
           image: data.image || "",
           date: data.date || "",
           email: data.email || user?.email || "",
+          status: data.status || "Available", // ✅
+          rating: data.rating || 0,          // ✅
         });
         setLoading(false);
       })
@@ -68,14 +72,11 @@ const EditListing = () => {
     }
 
     try {
-      const res = await fetch(
-        `https://pawmart-server-psi.vercel.app/stores/${id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch(`http://localhost:5000/stores/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       if (!res.ok) throw new Error("Failed to update listing");
 
@@ -189,6 +190,32 @@ const EditListing = () => {
           className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] backdrop-blur-lg bg-white/10 dark:border-gray-100 transition"
           rows={4}
         ></textarea>
+
+        {/* ✅ Status */}
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] backdrop-blur-lg bg-white/10 dark:border-gray-100 transition"
+        >
+          <option value="Available">Available</option>
+          <option value="Adopted">Adopted</option>
+        </select>
+
+        {/* ✅ Rating */}
+        <select
+          name="rating"
+          value={formData.rating}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] backdrop-blur-lg bg-white/10 dark:border-gray-100 transition"
+        >
+          <option value={0}>No Rating</option>
+          <option value={1}>⭐</option>
+          <option value={2}>⭐⭐</option>
+          <option value={3}>⭐⭐⭐</option>
+          <option value={4}>⭐⭐⭐⭐</option>
+          <option value={5}>⭐⭐⭐⭐⭐</option>
+        </select>
 
         <input
           type="email"

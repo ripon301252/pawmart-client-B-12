@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PetSuppliesCard from "./PetSuppliesCard";
-import {
-  FaDog,
-  FaDrumstickBite,
-  FaBone,
-  FaPills,
-  FaThLarge,
-} from "react-icons/fa";
+import { FaDog, FaDrumstickBite, FaBone, FaPills, FaThLarge } from "react-icons/fa";
 import { Typewriter } from "react-simple-typewriter";
 
 const categories = [
@@ -26,24 +20,27 @@ const PetsSupplies = () => {
 
   // Fetch all stores
   useEffect(() => {
-    fetch("https://pawmart-server-psi.vercel.app/stores")
+    fetch("http://localhost:5000/stores")
       .then((res) => res.json())
       .then((data) => {
         setStores(data);
         setFilteredStores(data);
         setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   // Filter by category & search
   useEffect(() => {
-    let filtered = stores;
+    let filtered = [...stores];
 
     if (selectedCategory !== "All") {
       filtered = filtered.filter(
         (store) =>
-          store.category.toLowerCase() === selectedCategory.toLowerCase()
+          store.category?.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
       );
     }
 
@@ -85,7 +82,7 @@ const PetsSupplies = () => {
               className={`flex items-center justify-center sm:justify-start gap-3 px-6 py-4 text-lg sm:text-xl font-semibold transition-all duration-300 cursor-pointer shadow-md
               ${
                 selectedCategory === cat.name
-                  ? "text-gray-200 dark:text-gray-200 rounded-full border-gray-700  shadow-lg scale-105 backdrop-blur-lg bg-gray-700"
+                  ? "text-gray-200 dark:text-gray-200 rounded-full border-gray-700 shadow-lg scale-105 backdrop-blur-lg bg-gray-700"
                   : "backdrop-blur-lg bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-700 rounded-2xl hover:bg-gray-400"
               }`}
             >
@@ -96,7 +93,7 @@ const PetsSupplies = () => {
         })}
       </div>
 
-      {/* Search Bar with Icon */}
+      {/* Search Bar */}
       <div className="my-10 flex justify-center">
         <div className="relative w-full sm:w-1/2">
           <input
@@ -104,7 +101,7 @@ const PetsSupplies = () => {
             placeholder="Search by name..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-700 transition-all duration-300 outline-none backdrop-blur-lg bg-white/10 text-gray-700 dark:text-gray-200  "
+            className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-700 transition-all duration-300 outline-none backdrop-blur-lg bg-white/10 text-gray-700 dark:text-gray-200"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-200">
             <svg
@@ -127,7 +124,7 @@ const PetsSupplies = () => {
 
       {/* Stores Grid */}
       {filteredStores.length ? (
-        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 ">
+        <div className="grid lg:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-4">
           {filteredStores.map((store) => (
             <PetSuppliesCard key={store._id} store={store} />
           ))}

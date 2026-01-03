@@ -63,9 +63,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://pawmart-server-psi.vercel.app/${params.category}/${params.id}`
-          ),
+          fetch(`http://localhost:5000/${params.category}/${params.id}`),
       },
       {
         path: "/myProfile",

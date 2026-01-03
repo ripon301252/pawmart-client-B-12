@@ -17,6 +17,8 @@ const AddListing = () => {
     image: "",
     date: "",
     email: user?.email || "",
+    status: "Available", // default
+    rating: 0,           // default
   });
 
   const [isPets, setIsPets] = useState(true);
@@ -37,17 +39,21 @@ const AddListing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.name || !formData.location || !formData.image) {
       toast.error("Please fill all required fields!");
       return;
     }
+
     try {
-      const res = await fetch("https://pawmart-server-psi.vercel.app/stores", {
+      const res = await fetch("http://localhost:5000/stores", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
       if (!res.ok) throw new Error("Failed to add listing");
+
       await res.json();
       toast.success("Listing added successfully!");
       navigate("/myListing");
@@ -58,8 +64,9 @@ const AddListing = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto py-4 sm:py-20 ">
+    <div className="max-w-xl mx-auto py-4 sm:py-20">
       <title>PawMart - Add Listing</title>
+
       <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-gray-700 dark:text-gray-200 text-center">
         🐾
         <Typewriter
@@ -75,30 +82,33 @@ const AddListing = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-3 backdrop-blur-lg bg-white/10 p-4 sm:p-6 rounded-xl shadow-md text-gray-700 dark:text-gray-200 border border-gray-700 "
+        className="flex flex-col gap-3 backdrop-blur-lg bg-white/10 p-4 sm:p-6 rounded-xl shadow-md text-gray-700 dark:text-gray-200 border border-gray-700"
       >
+        {/* Name */}
         <input
           type="text"
           name="name"
           placeholder="Product / Pet Name *"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md  transition"
+          className="w-full p-2 border rounded-md transition"
           required
         />
 
+        {/* Category */}
         <select
           name="category"
           value={formData.category}
           onChange={handleChange}
           className="w-full p-2 border rounded-md transition"
         >
-          <option className="text-black">Pets</option>
-          <option className="text-black">Pet Food</option>
-          <option className="text-black">Accessories</option>
-          <option className="text-black">Pet Care Products</option>
+          <option value="Pets" className="text-black">Pets</option>
+          <option value="Pet Food" className="text-black">Pet Food</option>
+          <option value="Accessories" className="text-black">Accessories</option>
+          <option value="Pet Care Products" className="text-black">Pet Care Products</option>
         </select>
 
+        {/* Price */}
         <input
           type="number"
           name="price"
@@ -107,11 +117,10 @@ const AddListing = () => {
           onChange={handleChange}
           min="0"
           disabled={isPets}
-          className={`w-full p-2 border rounded-md transition ${
-            isPets ? " cursor-not-allowed" : ""
-          }`}
+          className={`w-full p-2 border rounded-md transition ${isPets ? "cursor-not-allowed" : ""}`}
         />
 
+        {/* Location */}
         <input
           type="text"
           name="location"
@@ -122,14 +131,16 @@ const AddListing = () => {
           required
         />
 
+        {/* Date */}
         <input
           type="date"
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md transition "
+          className="w-full p-2 border rounded-md transition"
         />
 
+        {/* Image */}
         <input
           type="text"
           name="image"
@@ -140,6 +151,7 @@ const AddListing = () => {
           required
         />
 
+        {/* Image Preview */}
         {imagePreview && (
           <div className="w-full h-40 sm:h-48 rounded-md overflow-hidden shadow-sm mt-2">
             <img
@@ -150,6 +162,33 @@ const AddListing = () => {
           </div>
         )}
 
+        {/* Status */}
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-md transition"
+        >
+          <option value="Available" className="text-black">Available</option>
+          <option value="Adopted" className="text-black">Adopted</option>
+        </select>
+
+        {/* Rating */}
+        <select
+          name="rating"
+          value={formData.rating}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-md transition"
+        >
+          <option value={0} className="text-black">No Rating</option>
+          <option value={1} className="text-black">⭐</option>
+          <option value={2} className="text-black">⭐⭐</option>
+          <option value={3} className="text-black">⭐⭐⭐</option>
+          <option value={4} className="text-black">⭐⭐⭐⭐</option>
+          <option value={5} className="text-black">⭐⭐⭐⭐⭐</option>
+        </select>
+
+        {/* Description */}
         <textarea
           name="description"
           placeholder="Description"
@@ -157,11 +196,10 @@ const AddListing = () => {
           onChange={handleChange}
           className="w-full p-2 border rounded-md transition"
           rows={3}
-        ></textarea>
-        <p className="text-xs text-gray-500 text-right">
-          {formData.description.length} characters
-        </p>
+        />
+        <p className="text-xs text-gray-500 text-right">{formData.description.length} characters</p>
 
+        {/* Email */}
         <input
           type="email"
           name="email"
@@ -170,6 +208,7 @@ const AddListing = () => {
           className="w-full p-2 border rounded-md cursor-not-allowed"
         />
 
+        {/* Submit */}
         <button
           type="submit"
           className="mt-4 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"

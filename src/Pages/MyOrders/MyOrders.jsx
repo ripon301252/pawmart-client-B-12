@@ -15,7 +15,7 @@ const MyOrders = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`https://pawmart-server-psi.vercel.app/myOrders?email=${user.email}`)
+    fetch(`http://localhost:5000/myOrders?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -41,10 +41,9 @@ const MyOrders = () => {
 
     if (result.isConfirmed) {
       try {
-        await fetch(
-          `https://pawmart-server-psi.vercel.app/myOrders/${id}`,
-          { method: "DELETE" }
-        );
+        await fetch(`http://localhost:5000/myOrders/${id}`, {
+          method: "DELETE",
+        });
         setOrders((prev) => prev.filter((o) => o._id !== id));
         Swal.fire("Removed!", "Order deleted successfully.", "success");
       } catch {
@@ -162,9 +161,11 @@ const MyOrders = () => {
                   key={order._id}
                   className={`border-b border-gray-200 dark:border-gray-700
                     transition-all
-                    ${index % 2 === 0
-                      ? "bg-white dark:bg-base-200"
-                      : "bg-gray-50 dark:bg-base-300"}
+                    ${
+                      index % 2 === 0
+                        ? "bg-white dark:bg-base-200"
+                        : "bg-gray-50 dark:bg-base-300"
+                    }
                     hover:bg-primary/10 dark:hover:bg-primary/20
                   `}
                 >
@@ -193,17 +194,14 @@ const MyOrders = () => {
                       className="btn btn-md btn-error btn-square tooltip"
                       data-tip="Remove Order"
                     >
-                      <FaTrash className="text-lg"/>
+                      <FaTrash className="text-lg" />
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td
-                  colSpan="10"
-                  className="text-center py-10 text-gray-400"
-                >
+                <td colSpan="10" className="text-center py-10 text-gray-400">
                   No orders found
                 </td>
               </tr>

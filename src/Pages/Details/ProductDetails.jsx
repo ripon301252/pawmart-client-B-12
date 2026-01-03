@@ -2,29 +2,34 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import OrderModal from "../MyOrders/OrderModal";
+import { FaStar } from "react-icons/fa";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`https://pawmart-server-psi.vercel.app/stores/details/${id}`)
+    setLoading(true);
+    fetch(`http://localhost:5000/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
         setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, [id]);
 
   if (loading)
     return (
       <div className="flex justify-center items-center h-[60vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#5633e4] border-solid"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#5633e4] border-solid"></div>
       </div>
     );
 
@@ -34,6 +39,15 @@ const ProductDetails = () => {
         Item not found 😿
       </p>
     );
+
+  const formatPrice = (price) =>
+    price > 0
+      ? new Intl.NumberFormat("en-BD", {
+          style: "currency",
+          currency: "BDT",
+          maximumFractionDigits: 0,
+        }).format(price)
+      : "Free for Adoption 🐾";
 
   return (
     <div className="max-w-6xl mx-auto p-4 sm:p-8">
@@ -52,36 +66,35 @@ const ProductDetails = () => {
         {/* Image */}
         <div className="relative rounded-xl overflow-hidden group">
           <img
-            src={item.image}
-            alt={item.name}
+            src={item.image || "/placeholder.png"}
+            alt={item.name || "Product"}
             className="w-full h-[350px] sm:h-[450px] object-cover rounded-xl transition-transform duration-300 transform group-hover:scale-105 group-hover:shadow-xl"
           />
-          <span className="absolute top-4 right-4 bg-[#765ed4] text-gray-700 dark:text-gray-200 px-4 py-1 rounded-full text-sm font-semibold shadow-md">
-            {item.category}
-          </span>
+          {item.category && (
+            <span className="absolute top-4 right-4 bg-[#765ed4] text-gray-700 dark:text-gray-200 px-4 py-1 rounded-full text-sm font-semibold shadow-md">
+              {item.category}
+            </span>
+          )}
         </div>
 
         {/* Info */}
         <div className="flex flex-col justify-between p-4 sm:p-6">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-700 dark:text-gray-200 mb-3">
-              {item.name}
+              {item.name || "Unknown Product"}
             </h1>
 
             <p className="text-gray-700 dark:text-gray-200 text-lg mb-3">
               <strong>💰 Price:</strong>{" "}
-              {item.price > 0 ? (
-                <span className="text-gray-700 dark:text-gray-200 font-semibold">৳ {item.price}</span>
-              ) : (
-                <span className="text-green-600 font-semibold">
-                  Free for Adoption 🐾
-                </span>
-              )}
+              <span className="text-gray-700 dark:text-gray-200 font-semibold">
+                {formatPrice(item.price)}
+              </span>
             </p>
 
+            {/* Meta Info */}
             <div className="space-y-2 text-gray-700 dark:text-gray-200 text-base mb-4">
               <p>
-                <strong>📍 Location:</strong> {item.location}
+                <strong>📍 Location:</strong> {item.location || "Not Provided"}
               </p>
               <p>
                 <strong>📧 Owner Email:</strong> {item.email || "Not Provided"}
@@ -102,8 +115,34 @@ const ProductDetails = () => {
                   {new Date(item.postedAt).toLocaleDateString()}
                 </p>
               )}
+
+              {/* Status */}
+              {item.status && (
+                <p className="text-green-500 font-semibold">
+                  <strong>Status:</strong> {item.status}
+                </p>
+              )}
+
+              {/* Rating */}
+              {item.rating !== undefined && (
+                <div className="flex items-center gap-1">
+                  <strong>Rating:</strong>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <FaStar
+                      key={i}
+                      className={`${
+                        i < item.rating ? "text-yellow-400" : "text-gray-300"
+                      }`}
+                    />
+                  ))}
+                  <span className="ml-2 text-gray-700 dark:text-gray-200">
+                    ({item.rating}/5)
+                  </span>
+                </div>
+              )}
             </div>
 
+            {/* Description */}
             <div>
               <h2 className="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-200">
                 Description
@@ -114,7 +153,7 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          {/* Button */}
+          {/* Adopt / Order Button */}
           <button
             onClick={() => setModalOpen(true)}
             className="mt-6 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
