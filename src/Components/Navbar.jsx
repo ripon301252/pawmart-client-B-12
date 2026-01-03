@@ -16,7 +16,7 @@ const Navbar = () => {
   const linkClass = ({ isActive }) =>
     `px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
       isActive
-        ? "text-[#5633e4] border-b-2 border-[#8755ea]"
+        ? "text-[#ffffff] bg-gray-700"
         : "text-gray-700 dark:text-gray-200 hover:text-[#8755ea] hover:scale-105"
     }`;
 

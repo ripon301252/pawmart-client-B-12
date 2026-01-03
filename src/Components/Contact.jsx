@@ -20,8 +20,8 @@ const Contact = () => {
       </h1>
 
       {/* Description */}
-      <p className="mb-12 text-gray-700 dark:text-gray-300 text-center md:text-left text-lg md:text-xl">
-        Have questions or need support? Reach out to us using any of the methods below. <br /> We’d love to hear from you!
+      <p className="mb-12 text-gray-700 dark:text-gray-300 flex flex-col items-center md:text-left text-lg md:text-xl">
+        Have questions or need support? Reach out to us using any of the methods below. <span className="text-center mt-1">We’d love to hear from you!</span> 
       </p>
  
       {/* Contact Cards */}
@@ -66,7 +66,7 @@ const Contact = () => {
       <div className="mt-12 text-center md:text-left">
         <a
           href="mailto:ripon301252@gmail.com"
-          className="inline-block bg-[#5b46b1] hover:bg-[#6a55d8] text-white px-8 py-3 rounded-lg font-semibold shadow-lg transition-all duration-300"
+          className="inline-block bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg transition-all duration-300"
         >
           Send an Email
         </a>

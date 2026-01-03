@@ -118,7 +118,7 @@ const Footer = () => {
             />
             <button
               onClick={handleSubscribe}
-              className="bg-[#5b46b1] hover:bg-[#6a55d8] text-white px-4 py-2 rounded-md transition"
+              className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition cursor-pointer"
             >
               Go
             </button>

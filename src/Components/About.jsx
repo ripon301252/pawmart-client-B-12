@@ -51,7 +51,7 @@ const About = () => {
       </div>
 
       {/* Technology Section */}
-      <section className="bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 text-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+      <section className="bg-gray-800  text-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
         <h2 className="text-2xl md:text-3xl font-semibold mb-4">
           Technology Behind PawMart
         </h2>
@@ -69,7 +69,7 @@ const About = () => {
       <div className="mt-12 text-center md:text-left">
         <a
           href="/contact"
-          className="inline-block bg-[#5b46b1] hover:bg-[#6a55d8] text-white  px-6 py-3 rounded-lg font-semibold shadow-lg transition-colors duration-300"
+          className="inline-block bg-gray-700 hover:bg-gray-800 text-white  px-6 py-3 rounded-lg font-semibold shadow-lg transition-colors duration-300"
         >
           Get in Touch
         </a>
