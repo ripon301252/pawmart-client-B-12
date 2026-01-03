@@ -61,7 +61,7 @@ const PetsSupplies = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 my-7">
       {/* Typewriter Header */}
-      <h2 className="text-4xl text-white font-bold text-center my-12 flex items-center justify-center gap-3">
+      <h2 className="text-4xl text-gray-700 dark:text-gray-200 font-bold text-center my-12 flex items-center justify-center gap-3">
         🛒
         <Typewriter
           words={["Our Collections", "Pets & Supplies"]}
@@ -85,8 +85,8 @@ const PetsSupplies = () => {
               className={`flex items-center justify-center sm:justify-start gap-3 px-6 py-4 text-lg sm:text-xl font-semibold transition-all duration-300 cursor-pointer shadow-md
               ${
                 selectedCategory === cat.name
-                  ? " text-white rounded-full border-gray-300  shadow-lg scale-105 backdrop-blur-lg bg-white/10"
-                  : "backdrop-blur-lg bg-white/10 text-white border border-gray-300 rounded-2xl hover:bg-gray-400"
+                  ? "text-gray-200 dark:text-gray-200 rounded-full border-gray-700  shadow-lg scale-105 backdrop-blur-lg bg-gray-700"
+                  : "backdrop-blur-lg bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-700 rounded-2xl hover:bg-gray-400"
               }`}
             >
               <Icon className="text-2xl" />
@@ -104,9 +104,9 @@ const PetsSupplies = () => {
             placeholder="Search by name..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:border-[#7a68c0] focus:ring-1 focus:ring-[#7a68c0] transition-all duration-300 outline-none backdrop-blur-lg bg-white/10 text-white placeholder-white"
+            className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-700 transition-all duration-300 outline-none backdrop-blur-lg bg-white/10 text-gray-700 dark:text-gray-200  "
           />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -127,13 +127,13 @@ const PetsSupplies = () => {
 
       {/* Stores Grid */}
       {filteredStores.length ? (
-        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 ">
           {filteredStores.map((store) => (
             <PetSuppliesCard key={store._id} store={store} />
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500">
+        <p className="text-center text-gray-700 dark:text-gray-200">
           No listings found in this category or search.
         </p>
       )}

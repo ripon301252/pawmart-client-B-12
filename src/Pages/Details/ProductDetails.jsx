@@ -30,7 +30,7 @@ const ProductDetails = () => {
 
   if (!item)
     return (
-      <p className="text-center text-xl text-gray-500 mt-20">
+      <p className="text-center text-xl text-gray-700 dark:text-gray-200 mt-20">
         Item not found 😿
       </p>
     );
@@ -42,13 +42,13 @@ const ProductDetails = () => {
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        className="mb-6 flex items-center text-white font-medium transition cursor-pointer"
+        className="mb-6 flex items-center text-gray-700 dark:text-gray-200 font-medium transition cursor-pointer"
       >
         ← Back to Previous Page
       </button>
 
       {/* Main Card */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl overflow-hidden p-4 sm:p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start backdrop-blur-lg bg-white/10 shadow-lg rounded-2xl overflow-hidden p-4 sm:p-6 border border-gray-700">
         {/* Image */}
         <div className="relative rounded-xl overflow-hidden group">
           <img
@@ -56,7 +56,7 @@ const ProductDetails = () => {
             alt={item.name}
             className="w-full h-[350px] sm:h-[450px] object-cover rounded-xl transition-transform duration-300 transform group-hover:scale-105 group-hover:shadow-xl"
           />
-          <span className="absolute top-4 right-4 bg-[#765ed4] text-white px-4 py-1 rounded-full text-sm font-semibold shadow-md">
+          <span className="absolute top-4 right-4 bg-[#765ed4] text-gray-700 dark:text-gray-200 px-4 py-1 rounded-full text-sm font-semibold shadow-md">
             {item.category}
           </span>
         </div>
@@ -64,14 +64,14 @@ const ProductDetails = () => {
         {/* Info */}
         <div className="flex flex-col justify-between p-4 sm:p-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-700 dark:text-gray-200 mb-3">
               {item.name}
             </h1>
 
-            <p className="text-white text-lg mb-3">
+            <p className="text-gray-700 dark:text-gray-200 text-lg mb-3">
               <strong>💰 Price:</strong>{" "}
               {item.price > 0 ? (
-                <span className="text-white font-semibold">৳ {item.price}</span>
+                <span className="text-gray-700 dark:text-gray-200 font-semibold">৳ {item.price}</span>
               ) : (
                 <span className="text-green-600 font-semibold">
                   Free for Adoption 🐾
@@ -79,7 +79,7 @@ const ProductDetails = () => {
               )}
             </p>
 
-            <div className="space-y-2 text-white text-base mb-4">
+            <div className="space-y-2 text-gray-700 dark:text-gray-200 text-base mb-4">
               <p>
                 <strong>📍 Location:</strong> {item.location}
               </p>
@@ -105,10 +105,10 @@ const ProductDetails = () => {
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold mb-2 text-white">
+              <h2 className="text-lg font-semibold mb-2 text-gray-700 dark:text-gray-200">
                 Description
               </h2>
-              <p className="text-white leading-relaxed text-justify">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-justify">
                 {item.description || "No description available."}
               </p>
             </div>
@@ -117,7 +117,7 @@ const ProductDetails = () => {
           {/* Button */}
           <button
             onClick={() => setModalOpen(true)}
-            className="mt-6 w-full sm:w-auto backdrop-blur-lg bg-white/10 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:scale-105 transition-transform cursor-pointer"
+            className="mt-6 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
           >
             🛒 Adopt / Order Now
           </button>

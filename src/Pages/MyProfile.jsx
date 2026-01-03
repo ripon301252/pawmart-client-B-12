@@ -20,7 +20,7 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="min-h-screen  bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 flex justify-center items-center px-4 py-8">
+    <div className="min-h-screen bg-white dark:bg-gray-800 flex justify-center items-center px-4 py-8">
       <title>KidsToy - My Profile</title>
 
       <div className="card w-full max-w-md backdrop-blur-lg bg-white/10  rounded-2xl p-6 border border-gray-200">

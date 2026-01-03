@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const SlideBanner = () => {
+
+   const navigate = useNavigate();
 
   // handle slide
   const handleSlide = (e, id) => {
@@ -13,7 +16,7 @@ const SlideBanner = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 pt-8 pb-12 mt-8 rounded-2xl shadow-lg border border-pink-700">
+    <div className="relative pt-8 pb-12 mt-8 rounded-2xl border border-gray-700 dark:bg-gray-700">
       <section className="max-w-6xl mx-auto mt-6 px-4 md:px-0 relative">
         <div className="carousel w-full rounded-2xl overflow-hidden relative">
 

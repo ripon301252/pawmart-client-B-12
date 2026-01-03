@@ -7,72 +7,76 @@ const Footer = () => {
 
   const handleSubscribe = () => {
     if (!email) return toast.error("Please enter your email");
-    // Placeholder for backend integration
     toast.success("Subscribed successfully!");
     setEmail("");
   };
 
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-10">
-      <div className="max-w-7xl mx-auto px-5 md:flex md:justify-between md:items-start gap-10">
+    <footer className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <div className="max-w-7xl mx-auto px-5 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
 
-        {/* Logo & Description */}
-        <div className="mb-8 md:mb-0">
-          <div className="flex items-center gap-2 mb-2">
+        {/* Logo & About */}
+        <div>
+          <div className="flex items-center gap-2 mb-3">
             <img src={Img} alt="PawMart Logo" className="w-10 h-10" />
             <h1 className="text-2xl font-bold">
               Paw<span className="text-orange-500">Mart</span>
             </h1>
           </div>
-          <p className="max-w-xs">
-            PawMart connects local pet owners and buyers for adoption and pet
+          <p className="text-sm">
+            PawMart connects pet lovers with trusted adoption services and pet
             care products.
           </p>
 
-          {/* Social Icons */}
-          <div className="flex items-center mt-3 gap-3 text-2xl">
+          {/* Social Links */}
+          <div className="flex gap-4 text-2xl mt-4">
             <a
               href="https://www.facebook.com/mahfuzur.rahman.98284"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-blue-600 transition-colors"
+              className="hover:text-blue-600"
             >
               <i className="fa-brands fa-facebook"></i>
             </a>
             <a
-              href="https://x.com/"
+              href="https://x.com/your_username"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-white transition-colors"
+              className="hover:text-gray-400"
             >
               <i className="fa-brands fa-x-twitter"></i>
             </a>
             <a
-              href="https://www.youtube.com/"
+              href="https://www.instagram.com/your_username"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-red-600 transition-colors"
+              className="hover:text-pink-600"
             >
-              <i className="fa-brands fa-youtube"></i>
+              <i className="fa-brands fa-instagram"></i>
             </a>
             <a
-              href="https://www.instagram.com/"
+              href="https://www.youtube.com/@your_channel"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-pink-600 transition-colors"
+              className="hover:text-red-600"
             >
-              <i className="fa-brands fa-square-instagram"></i>
+              <i className="fa-brands fa-youtube"></i>
             </a>
           </div>
         </div>
 
         {/* Useful Links */}
-        <div className="mb-8 md:mb-0">
-          <h3 className="text-xl font-semibold mb-2">Useful Links</h3>
-          <ul className="space-y-1">
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Useful Links</h3>
+          <ul className="space-y-2 text-sm">
             <li>
               <a href="/" className="hover:underline">
                 Home
+              </a>
+            </li>
+            <li>
+              <a href="/about" className="hover:underline">
+                About Us
               </a>
             </li>
             <li>
@@ -88,29 +92,42 @@ const Footer = () => {
           </ul>
         </div>
 
+        {/* Contact Info */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Contact</h3>
+          <ul className="space-y-2 text-sm">
+            <li>Email: ripon301252@gmail.com.com</li>
+            <li>Phone: +880 1626607121</li>
+            <li>Location: Dhaka, Bangladesh</li>
+          </ul>
+        </div>
+
         {/* Subscribe */}
         <div>
-          <h3 className="text-xl font-semibold mb-2">Subscribe</h3>
-          <div className="flex flex-col sm:flex-row gap-2">
+          <h3 className="text-lg font-semibold mb-3">Subscribe</h3>
+          <p className="text-sm mb-2">
+            Get updates about new pets & offers.
+          </p>
+          <div className="flex gap-2">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="py-2 px-3 rounded-md outline-none border border-gray-400 dark:border-gray-600 w-full text-gray-800 dark:text-gray-200"
+              placeholder="Your email"
+              className="w-full px-3 py-2 rounded-md border outline-none text-gray-800"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button
               onClick={handleSubscribe}
-              className=" bg-[#5b46b1] hover:bg-[#654dc7] text-white px-4 py-2 rounded-md hover:from-pink-500 hover:to-purple-500 transition-all duration-300 cursor-pointer"
+              className="bg-[#5b46b1] hover:bg-[#6a55d8] text-white px-4 py-2 rounded-md transition"
             >
-              Subscribe
+              Go
             </button>
           </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="mt-10 border-t border-gray-300 dark:border-gray-700 text-center py-4 text-sm">
+      {/* Bottom */}
+      <div className="border-t border-gray-300 dark:border-gray-700 py-4 text-center text-sm">
         © {new Date().getFullYear()} PawMart. All rights reserved.
       </div>
     </footer>

@@ -4,13 +4,14 @@ import Swal from "sweetalert2";
 import { Typewriter } from "react-simple-typewriter";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { FaTrash, FaFilePdf } from "react-icons/fa";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch Orders
+  /* ---------------- Fetch Orders ---------------- */
   useEffect(() => {
     if (!user?.email) return;
 
@@ -20,52 +21,44 @@ const MyOrders = () => {
         setOrders(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         Swal.fire("Error", "Failed to load orders!", "error");
         setLoading(false);
       });
   }, [user?.email]);
 
-  // Delete Order
+  /* ---------------- Delete Order ---------------- */
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "Do you really want to remove this order?",
+      title: "Remove Order?",
+      text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, remove it!",
-      cancelButtonText: "Cancel",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6366f1",
+      confirmButtonText: "Yes, Remove",
     });
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(
+        await fetch(
           `https://pawmart-server-psi.vercel.app/myOrders/${id}`,
-          {
-            method: "DELETE",
-          }
+          { method: "DELETE" }
         );
-
-        if (!res.ok) throw new Error("Failed to delete order");
-
-        setOrders((prev) => prev.filter((order) => order._id !== id));
-        Swal.fire("Deleted!", "Your order has been removed.", "success");
-      } catch (err) {
-        console.error(err);
+        setOrders((prev) => prev.filter((o) => o._id !== id));
+        Swal.fire("Removed!", "Order deleted successfully.", "success");
+      } catch {
         Swal.fire("Error!", "Failed to remove order.", "error");
       }
     }
   };
 
-  // 📄 Download PDF Report
+  /* ---------------- PDF ---------------- */
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-    doc.text("PawMart - My Orders Report", 14, 10);
+    doc.text("PawMart - My Orders Report", 14, 12);
 
-    const tableColumn = [
+    const columns = [
       "Product",
       "Category",
       "Price",
@@ -76,123 +69,141 @@ const MyOrders = () => {
       "Email",
     ];
 
-    const tableRows = [];
-
-    orders.forEach((order) => {
-      tableRows.push([
-        order.name,
-        order.category,
-        order.price === 0 ? "Free for Adoption" : `৳ ${order.price}`,
-        order.quantity || 1,
-        order.address || "-",
-        order.date ? new Date(order.date).toLocaleDateString() : "-",
-        order.phone || "-",
-        order.email,
-      ]);
-    });
+    const rows = orders.map((order) => [
+      order.name,
+      order.category,
+      order.price === 0 ? "Free for Adoption" : `৳ ${order.price}`,
+      order.quantity || 1,
+      order.address || "-",
+      order.date ? new Date(order.date).toLocaleDateString() : "-",
+      order.phone || "-",
+      order.email,
+    ]);
 
     autoTable(doc, {
-      head: [tableColumn],
-      body: tableRows,
+      head: [columns],
+      body: rows,
       startY: 20,
     });
 
     doc.save("My_Orders_Report.pdf");
   };
 
-  if (loading)
+  /* ---------------- Loading ---------------- */
+  if (loading) {
     return (
-      <p className="text-center mt-10 text-lg font-semibold text-white">
-        Loading...
-      </p>
+      <div className="flex justify-center items-center h-[60vh]">
+        <span className="loading loading-spinner text-primary text-5xl"></span>
+      </div>
     );
+  }
 
   return (
-    <div className="max-w-7xl mx-auto py-4 md:p-8">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <title>PawMart - My Orders</title>
 
       {/* Heading */}
-      <h2 className="text-4xl md:text-4xl font-bold pb-8 text-center text-white flex justify-center items-center gap-3">
+      <h2 className="text-4xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">
         🐾
         <Typewriter
-          words={["My Orders"]}
+          words={[" My Orders"]}
           loop
           cursor
           cursorStyle="_"
           typeSpeed={70}
-          deleteSpeed={50}
-          delaySpeed={1000}
+          delaySpeed={1200}
         />
       </h2>
 
-      {/* PDF Button */}
-      <div className="flex justify-end mb-4">
+      {/* Actions */}
+      <div className="flex justify-between items-center mb-3">
+        <p className="text-sm text-gray-400 lg:hidden">
+          ⬅ Swipe horizontally ➡
+        </p>
+
         <button
           onClick={handleDownloadPDF}
-          className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+          className="btn btn-sm btn-success flex items-center gap-2"
         >
-          Download Report (PDF)
+          <FaFilePdf />
+          Download PDF
         </button>
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto shadow-lg rounded-xl">
-        <table className="min-w-full border-collapse text-left">
-          <thead className="bg-primary text-white text-base md:text-lg font-semibold">
+      <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+        <table className="min-w-[1100px] w-full border-collapse">
+          {/* Sticky Header */}
+          <thead className="bg-primary text-white sticky top-0 z-10">
             <tr>
-              <th className="px-4 py-3">#</th>
-              <th className="px-4 py-3">Product</th>
-              <th className="px-4 py-3">Category</th>
-              <th className="px-4 py-3">Price</th>
-              <th className="px-4 py-3">Qty</th>
-              <th className="px-4 py-3">Address</th>
-              <th className="px-4 py-3">Date</th>
-              <th className="px-4 py-3">Phone</th>
-              <th className="px-4 py-3">Owner Email</th>
-              <th className="px-4 py-3">Action</th>
+              {[
+                "#",
+                "Product",
+                "Category",
+                "Price",
+                "Qty",
+                "Address",
+                "Date",
+                "Phone",
+                "Owner Email",
+                "Action",
+              ].map((head) => (
+                <th key={head} className="px-5 py-4 text-left">
+                  {head}
+                </th>
+              ))}
             </tr>
           </thead>
 
           <tbody>
-            {orders.length > 0 ? (
+            {orders.length ? (
               orders.map((order, index) => (
                 <tr
                   key={order._id}
-                  className={`transition-colors text-white text-sm md:text-base hover:bg-white/20 ${
-                    index % 2 === 0 ? "bg-white/5" : "bg-white/10"
-                  }`}
+                  className={`border-b border-gray-200 dark:border-gray-700
+                    transition-all
+                    ${index % 2 === 0
+                      ? "bg-white dark:bg-base-200"
+                      : "bg-gray-50 dark:bg-base-300"}
+                    hover:bg-primary/10 dark:hover:bg-primary/20
+                  `}
                 >
-                  <td className="px-4 py-3">{index + 1}</td>
-                  <td className="px-4 py-3">{order.name}</td>
-                  <td className="px-4 py-3">{order.category}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-5 py-4 font-medium">{index + 1}</td>
+                  <td className="px-5 py-4 font-semibold">{order.name}</td>
+                  <td className="px-5 py-4">{order.category}</td>
+                  <td className="px-5 py-4">
                     {order.price === 0
                       ? "Free for Adoption"
                       : `৳ ${order.price}`}
                   </td>
-                  <td className="px-4 py-3">{order.quantity || 1}</td>
-                  <td className="px-4 py-3">{order.address || "-"}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-5 py-4">{order.quantity || 1}</td>
+                  <td className="px-5 py-4">{order.address || "-"}</td>
+                  <td className="px-5 py-4">
                     {order.date
                       ? new Date(order.date).toLocaleDateString()
                       : "-"}
                   </td>
-                  <td className="px-4 py-3">{order.phone || "-"}</td>
-                  <td className="px-4 py-3">{order.email}</td>
+                  <td className="px-5 py-4">{order.phone || "-"}</td>
+                  <td className="px-5 py-4">{order.email}</td>
 
-                  <td className="px-4 py-3 flex flex-wrap gap-2 mt-2">
+                  {/* Action */}
+                  <td className="px-5 py-4">
                     <button
                       onClick={() => handleDelete(order._id)}
-                      className="cursor-pointer px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition text-sm md:text-base"
+                      className="btn btn-md btn-error btn-square tooltip"
+                      data-tip="Remove Order"
                     >
-                      Remove
+                      <FaTrash className="text-lg"/>
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="10" className="text-center text-gray-400 py-6">
+                <td
+                  colSpan="10"
+                  className="text-center py-10 text-gray-400"
+                >
                   No orders found
                 </td>
               </tr>

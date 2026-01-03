@@ -46,8 +46,8 @@ const RecentList = () => {
       : "Free for Adoption";
 
   return (
-    <div className="p-4 sm:p-8">
-      <h1 className="text-center text-4xl text-white font-bold mt-14 mb-8 flex items-center justify-center gap-3">
+    <div className="p-1">
+      <h1 className="text-center text-4xl text-gray-700 dark:text-gray-200 font-bold mt-14 mb-8 flex items-center justify-center gap-3">
         🐾
         <Typewriter
           words={["Home", "Recent List"]}
@@ -68,8 +68,8 @@ const RecentList = () => {
             onClick={() => setSelectedCategory(cat.name)}
             className={`flex items-center justify-center sm:justify-start gap-3 px-6 py-5 text-lg sm:text-xl font-semibold transition-all duration-300 cursor-pointer shadow ${
               selectedCategory === cat.name
-                ? "text-white rounded-full border-gray-300  shadow-lg scale-105 backdrop-blur-lg bg-white/10"
-                : "backdrop-blur-lg bg-white/10 text-white border border-gray-300 rounded-2xl hover:bg-gray-400"
+                ? "text-gray-200 dark:text-gray-200 rounded-full border-gray-700  shadow-lg scale-105 backdrop-blur-lg bg-gray-700"
+                : "backdrop-blur-lg bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-700 rounded-2xl hover:bg-gray-400"
             }`}
           >
             <span className="text-2xl">{cat.icon}</span>
@@ -80,7 +80,7 @@ const RecentList = () => {
       </div>
 
       {/* Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
         {stores.slice(0, 6).map((item) => (
           <motion.div
             key={item._id}
@@ -89,7 +89,7 @@ const RecentList = () => {
             animate="visible"
             whileHover="hover"
             transition={{ duration: 0.3 }}
-            className="rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col cursor-pointer group border-1 border-gray-300 backdrop-blur-lg bg-white/10"
+            className="rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col group border border-gray-700 backdrop-blur-lg bg-white/10"
           >
             {/* Image */}
             <div className="overflow-hidden rounded-2xl h-56 sm:h-64 lg:h-60 p-5">
@@ -102,23 +102,23 @@ const RecentList = () => {
 
             {/* Card Info */}
             <div className="p-6 flex flex-col gap-2 flex-grow">
-              <h3 className="text-2xl sm:text-lg font-semibold text-white">
+              <h3 className="text-2xl sm:text-lg font-semibold text-gray-700 dark:text-gray-200">
                 {item.name}
               </h3>
-              <p className="text-sm sm:text-base text-white">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-200">
                 <span className="font-bold">Category: </span>
                 {item.category}
               </p>
-              <p className="text-sm sm:text-base font-medium text-white">
-                <span>Price: </span>
+              <p className="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-200">
+                <span className="font-bold">Price: </span>
                 {formatPrice(item.price)}
               </p>
-              <p className="text-sm sm:text-base text-white">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-200">
                 <span className="font-bold">Location: </span>
                 {item.location}
               </p>
               {item.email && (
-                <p className="text-sm sm:text-base text-white">
+                <p className="text-sm sm:text-base text-gray-700 dark:text-gray-200">
                   <span className="font-bold">Owner Email: </span>
                   {item.email}
                 </p>
@@ -132,7 +132,7 @@ const RecentList = () => {
                     }`
                   )
                 }
-                className="mt-4 backdrop-blur-lg bg-white/10 text-white text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
+                className="mt-4 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
                 aria-label={`See details of ${item.name}`}
               >
                 See Details

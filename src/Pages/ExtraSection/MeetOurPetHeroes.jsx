@@ -26,8 +26,8 @@ const heroes = [
 
 const MeetOurPetHeroes = () => {
   return (
-    <section className="my-20 text-center px-4 ">
-      <h2 className="text-4xl font-bold text-white mb-10">
+    <section className="my-20 text-center p-1 ">
+      <h2 className="text-4xl font-bold text-gray-700 dark:text-gray-200 mb-10">
         🦸‍♂️
         <Typewriter
           words={[ "Home", "Meet Our Pet Heroes"]}
@@ -40,19 +40,19 @@ const MeetOurPetHeroes = () => {
         />
       </h2>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         {heroes.map((hero, i) => (
           <div
             key={i}
-            className=" border border-gray-300 rounded-xl shadow hover:shadow-md transition-all p-4 backdrop-blur-lg bg-white/10"
+            className=" border border-gray-700 rounded-xl shadow hover:shadow-md transition-all p-4 backdrop-blur-lg bg-white/10"
           >
             <img
               src={hero.img}
               alt={hero.name}
               className="w-full h-48 object-cover rounded-lg mb-4 transition-transform duration-300 transform hover:scale-105"
             />
-            <h3 className="text-lg font-semibold text-white">{hero.name}</h3>
-            <p className="text-sm text-white">{hero.role}</p>
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">{hero.name}</h3>
+            <p className="text-sm text-gray-700 dark:text-gray-200">{hero.role}</p>
           </div>
         ))}
       </div>

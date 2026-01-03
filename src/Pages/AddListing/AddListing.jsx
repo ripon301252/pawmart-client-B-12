@@ -58,9 +58,9 @@ const AddListing = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4 sm:p-6 ">
+    <div className="max-w-xl mx-auto py-4 sm:py-20 ">
       <title>PawMart - Add Listing</title>
-      <h2 className="text-4xl sm:text-3xl font-bold mb-4 text-white text-center">
+      <h2 className="text-3xl sm:text-4xl font-bold mb-10 text-gray-700 dark:text-gray-200 text-center">
         🐾
         <Typewriter
           words={[" Add New Listing"]}
@@ -75,7 +75,7 @@ const AddListing = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-3 backdrop-blur-lg bg-white/10 p-4 sm:p-6 rounded-xl shadow-md text-white"
+        className="flex flex-col gap-3 backdrop-blur-lg bg-white/10 p-4 sm:p-6 rounded-xl shadow-md text-gray-700 dark:text-gray-200 border border-gray-700 "
       >
         <input
           type="text"
@@ -83,7 +83,7 @@ const AddListing = () => {
           placeholder="Product / Pet Name *"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-2 border rounded-md  transition"
           required
         />
 
@@ -91,7 +91,7 @@ const AddListing = () => {
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-2 border rounded-md transition"
         >
           <option className="text-black">Pets</option>
           <option className="text-black">Pet Food</option>
@@ -107,7 +107,7 @@ const AddListing = () => {
           onChange={handleChange}
           min="0"
           disabled={isPets}
-          className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition ${
+          className={`w-full p-2 border rounded-md transition ${
             isPets ? " cursor-not-allowed" : ""
           }`}
         />
@@ -118,7 +118,7 @@ const AddListing = () => {
           placeholder="Location *"
           value={formData.location}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-2 border rounded-md transition"
           required
         />
 
@@ -127,7 +127,7 @@ const AddListing = () => {
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition "
+          className="w-full p-2 border rounded-md transition "
         />
 
         <input
@@ -136,7 +136,7 @@ const AddListing = () => {
           placeholder="Image URL *"
           value={formData.image}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-2 border rounded-md transition"
           required
         />
 
@@ -155,7 +155,7 @@ const AddListing = () => {
           placeholder="Description"
           value={formData.description}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition"
+          className="w-full p-2 border rounded-md transition"
           rows={3}
         ></textarea>
         <p className="text-xs text-gray-500 text-right">
@@ -172,7 +172,7 @@ const AddListing = () => {
 
         <button
           type="submit"
-          className="mt-2 backdrop-blur-lg bg-white/10 text-white py-2 rounded-md font-semibold hover:opacity-90 transition-transform transform hover:scale-105 cursor-pointer"
+          className="mt-4 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
         >
           Add Listing
         </button>

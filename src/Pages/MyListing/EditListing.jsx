@@ -200,7 +200,7 @@ const EditListing = () => {
 
         <button
           type="submit"
-          className="mt-3 bg-gradient-to-r from-[#5633e4] to-[#654dc7] text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-transform transform hover:scale-105"
+          className="mt-4 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"
         >
           Update Listing
         </button>

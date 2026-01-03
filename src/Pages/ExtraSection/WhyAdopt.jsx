@@ -27,8 +27,8 @@ const WhyAdopt = () => {
   ];
 
   return (
-    <section className="my-16 text-center px-4">
-      <h2 className="text-4xl font-bold text-white mb-8">
+    <section className="my-16 text-center p-1">
+      <h2 className="text-4xl font-bold text-gray-700 dark:text-gray-200 mb-8">
         🐾
         <Typewriter
           words={["Home", "Why Adopt from PawMart?"]}
@@ -41,17 +41,17 @@ const WhyAdopt = () => {
         />
       </h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         {reasons.map((item, i) => (
           <div
             key={i}
-            className="p-6 backdrop-blur-lg bg-white/10 rounded-xl shadow hover:shadow-lg transition-all  hover:scale-105 border border-gray-300"
+            className="p-6 backdrop-blur-lg bg-white/10 rounded-xl shadow hover:shadow-lg transition-all  hover:scale-105 border border-gray-700"
           >
             <div className="mb-3 flex justify-center">{item.icon}</div>
-            <h3 className="text-lg text-white font-semibold mb-2">
+            <h3 className="text-lg text-gray-700 dark:text-gray-200 font-semibold mb-2">
               {item.title}
             </h3>
-            <p className="text-white text-sm">{item.desc}</p>
+            <p className="text-gray-700 dark:text-gray-200 text-sm">{item.desc}</p>
           </div>
         ))}
       </div>

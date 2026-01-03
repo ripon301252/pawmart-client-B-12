@@ -3,13 +3,13 @@ import { AuthContext } from "../../Context/AuthContext";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import { Typewriter } from "react-simple-typewriter";
+import { FaEdit, FaTrash, FaEye, FaPlus } from "react-icons/fa";
 
 const MyListings = () => {
   const { user } = useContext(AuthContext);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch listings for current user
   const fetchListings = async () => {
     if (!user?.email) return;
     try {
@@ -19,8 +19,7 @@ const MyListings = () => {
       );
       const data = await res.json();
       setListings(data);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
       Swal.fire("Error", "Failed to fetch listings!", "error");
     } finally {
       setLoading(false);
@@ -31,185 +30,173 @@ const MyListings = () => {
     fetchListings();
   }, [user?.email]);
 
-  // Delete listing with SweetAlert
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "Do you really want to delete this listing?",
+      title: "Delete Listing?",
+      text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "Cancel",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6366f1",
+      confirmButtonText: "Yes, Delete",
     });
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(
-          `https://pawmart-server-psi.vercel.app/stores/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
-        if (!res.ok) throw new Error("Failed to delete listing");
-
+        await fetch(`https://pawmart-server-psi.vercel.app/stores/${id}`, {
+          method: "DELETE",
+        });
         setListings((prev) => prev.filter((item) => item._id !== id));
-        Swal.fire("Deleted!", "Your listing has been deleted.", "success");
-      } catch (err) {
-        console.error(err);
+        Swal.fire("Deleted!", "Listing removed successfully.", "success");
+      } catch {
         Swal.fire("Error!", "Failed to delete listing.", "error");
       }
     }
   };
 
-  if (loading)
+  /* ---------------- Loading ---------------- */
+  if (loading) {
     return (
-      <div className="flex justify-center mt-10">
-        <span className="loading loading-spinner text-primary text-4xl"></span>
+      <div className="flex justify-center items-center h-[60vh]">
+        <span className="loading loading-spinner text-primary text-5xl"></span>
       </div>
     );
+  }
 
-  if (!listings.length)
+  /* ---------------- Empty ---------------- */
+  if (!listings.length) {
     return (
-      <p className="text-center mt-10 text-gray-700 text-lg">
-        No listings found!
-      </p>
+      <div className="text-center mt-20">
+        <p className="text-xl font-semibold text-gray-500">
+          😿 No listings found
+        </p>
+      </div>
     );
+  }
 
   return (
-    <div className="max-w-7xl mx-auto p-5">
-      <title>PawMart - My Listing</title>
-      <h2 className="text-4xl text-white font-bold my-12 text-center">
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      <title>PawMart - My Listings</title>
+
+      {/* Title */}
+      <h2 className="text-4xl font-bold text-center mb-10 text-gray-800 dark:text-gray-100">
         🐾
         <Typewriter
           words={[" My Listings"]}
-          loop={true}
+          loop
           cursor
           cursorStyle="_"
-          typeSpeed={70}
-          deleteSpeed={50}
-          delaySpeed={1000}
+          typeSpeed={80}
+          delaySpeed={1200}
         />
       </h2>
 
-      {/* Desktop Table */}
-      <div className="hidden lg:block overflow-x-auto shadow-lg rounded-lg">
-        <table className="table-auto w-full border-collapse text-left">
-          <thead className="bg-primary text-white">
+      {/* Mobile scroll hint */}
+      <p className="text-sm text-gray-400 mb-2 text-right lg:hidden">
+        ⬅ Swipe horizontally ➡
+      </p>
+
+      {/* Table */}
+      <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+        <table className="min-w-[900px] w-full border-collapse">
+          {/* Sticky Header */}
+          <thead className="bg-primary text-white sticky top-0 z-10">
             <tr>
-              <th className="px-4 py-3">#</th>
-              <th className="px-4 py-3">Image</th>
-              <th className="px-4 py-3">Product / Pet Name</th>
-              <th className="px-4 py-3">Category</th>
-              <th className="px-4 py-3">Price</th>
-              <th className="px-4 py-3">Location</th>
-              <th className="px-4 py-3">Actions</th>
+              <th className="px-5 py-4 text-left">#</th>
+              <th className="px-5 py-4 text-left">Image</th>
+              <th className="px-5 py-4 text-left">Name</th>
+              <th className="px-5 py-4 text-left">Category</th>
+              <th className="px-5 py-4 text-left">Price</th>
+              <th className="px-5 py-4 text-left">Location</th>
+              <th className="px-5 py-4 text-left">Actions</th>
             </tr>
           </thead>
+
+          {/* Body */}
           <tbody>
             {listings.map((listing, index) => (
               <tr
                 key={listing._id}
-                className={`transition-colors text-white text-sm md:text-base hover:bg-white/20 ${
-                  index % 2 === 0 ? "bg-white/5" : "bg-white/10"
-                }`}
+                className={`border-b border-gray-200 dark:border-gray-700
+                  transition-all duration-200
+                  ${
+                    index % 2 === 0
+                      ? "bg-white dark:bg-base-200"
+                      : "bg-gray-50 dark:bg-base-300"
+                  }
+                  hover:bg-primary/10 dark:hover:bg-primary/20
+                `}
               >
-                <td className="px-4 py-3">{index + 1}</td>
-                <td className="px-4 py-3">
+                <td className="px-5 py-4 font-medium">{index + 1}</td>
+
+                <td className="px-5 py-4">
                   <img
                     src={listing.image}
                     alt={listing.name}
-                    className="w-16 h-16 rounded-lg object-cover"
+                    className="w-14 h-14 rounded-lg object-cover ring-1 ring-gray-200 dark:ring-gray-600"
                   />
                 </td>
-                <td className="px-4 py-3 font-semibold">{listing.name}</td>
-                <td className="px-4 py-3">{listing.category}</td>
-                <td className="px-4 py-3">
+
+                <td className="px-5 py-4 font-semibold">{listing.name}</td>
+
+                <td className="px-5 py-4">{listing.category}</td>
+
+                <td className="px-5 py-4">
                   {listing.price > 0 ? (
-                    <span>৳ {listing.price}</span>
+                    <span className="font-medium">৳ {listing.price}</span>
                   ) : (
                     <span className="text-green-600 font-semibold">
                       Free Adoption
                     </span>
                   )}
                 </td>
-                <td className="px-4 py-3">{listing.location}</td>
-                <td className="px-4 py-3 flex flex-wrap gap-2 mt-5">
-                  <Link
-                    to={`/product-details/${listing._id}`}
-                    className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-                  >
-                    Details
-                  </Link>
-                  <Link
-                    to={`/editListing/${listing._id}`}
-                    className="px-3 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(listing._id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer"
-                  >
-                    Delete
-                  </button>
+
+                <td className="px-5 py-4">{listing.location}</td>
+
+                {/* Actions */}
+                <td className="px-5 py-4">
+                  <div className="flex items-center gap-2">
+                    {/* View Details */}
+                    <Link
+                      to={`/product-details/${listing._id}`}
+                      className="btn btn-md btn-info btn-square text-white tooltip"
+                      data-tip="View Details"
+                    >
+                      <FaEye className="text-lg" />
+                    </Link>
+
+                    {/* Add Listing */}
+                    <Link
+                      to="/addListing"
+                      className="btn btn-md btn-success btn-square text-white tooltip"
+                      data-tip="Add New Listing"
+                    >
+                      <FaPlus className="text-lg" />
+                    </Link>
+
+                    {/* Edit */}
+                    <Link
+                      to={`/editListing/${listing._id}`}
+                      className="btn btn-md btn-warning btn-square text-white tooltip"
+                      data-tip="Edit Listing"
+                    >
+                      <FaEdit className="text-lg" />
+                    </Link>
+
+                    {/* Delete */}
+                    <button
+                      onClick={() => handleDelete(listing._id)}
+                      className="btn btn-md btn-error btn-square text-white tooltip"
+                      data-tip="Delete Listing"
+                    >
+                      <FaTrash className="text-lg" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* Mobile Card View */}
-      <div className="lg:hidden flex flex-col gap-4">
-        {listings.map((listing, index) => (
-          <div
-            key={listing._id}
-            className={`rounded-lg shadow-md p-4 flex flex-col gap-3 ${
-              index % 2 === 0 ? "bg-white/5" : "bg-white/10"
-            }`}
-          >
-            <div className="flex justify-between items-center">
-              <span className="font-semibold text-lg">
-                {index + 1}. {listing.name}
-              </span>
-              <span className="text-sm text-gray-500">{listing.category}</span>
-            </div>
-            <img
-              src={listing.image}
-              alt={listing.name}
-              className="w-full h-48 object-cover rounded-lg"
-            />
-            <div className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-200">
-              <span>
-                Price:{" "}
-                {listing.price > 0 ? `৳ ${listing.price}` : "Free Adoption"}
-              </span>
-              <span>Location: {listing.location}</span>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              <Link
-                to={`/product-details/${listing._id}`}
-                className="flex-1 text-center px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-              >
-                Details
-              </Link>
-              <Link
-                to={`/editListing/${listing._id}`}
-                className="flex-1 text-center px-3 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={() => handleDelete(listing._id)}
-                className="flex-1 text-center px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 px-4">
+    <div className="min-h-screen flex justify-center items-center bg-white dark:bg-gray-800 px-4">
       <title>PawMart - Reset Password</title>
 
       <div className="card w-full max-w-md backdrop-blur-lg bg-white/10 shadow-2xl border border-white/40 rounded-2xl p-8 text-center">

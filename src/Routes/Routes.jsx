@@ -13,12 +13,15 @@ import Error from "../Pages/Error404/Error";
 import ProductDetails from "../Pages/Details/ProductDetails";
 import EditListing from "../Pages/MyListing/EditListing";
 import ResetPassword from "../Pages/Auth/ResetPassword";
+import About from "../Components/About";
+import Contact from "../Components/Contact";
+import Terms from "../Components/Terms";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
-    errorElement: <Error />,
+    // errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -83,6 +86,18 @@ export const router = createBrowserRouter([
       {
         path: "/forgotPassword",
         Component: ResetPassword,
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
+      },
+      {
+        path: "/terms",
+        Component: Terms,
       },
     ],
   },
