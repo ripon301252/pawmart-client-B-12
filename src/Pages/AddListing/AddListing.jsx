@@ -18,7 +18,7 @@ const AddListing = () => {
     date: "",
     email: user?.email || "",
     status: "Available", // default
-    rating: 0,           // default
+    rating: 0, // default
   });
 
   const [isPets, setIsPets] = useState(true);
@@ -46,11 +46,14 @@ const AddListing = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/stores", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://pawmart-server-three.vercel.app/stores",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to add listing");
 
@@ -102,10 +105,18 @@ const AddListing = () => {
           onChange={handleChange}
           className="w-full p-2 border rounded-md transition"
         >
-          <option value="Pets" className="text-black">Pets</option>
-          <option value="Pet Food" className="text-black">Pet Food</option>
-          <option value="Accessories" className="text-black">Accessories</option>
-          <option value="Pet Care Products" className="text-black">Pet Care Products</option>
+          <option value="Pets" className="text-black">
+            Pets
+          </option>
+          <option value="Pet Food" className="text-black">
+            Pet Food
+          </option>
+          <option value="Accessories" className="text-black">
+            Accessories
+          </option>
+          <option value="Pet Care Products" className="text-black">
+            Pet Care Products
+          </option>
         </select>
 
         {/* Price */}
@@ -117,7 +128,9 @@ const AddListing = () => {
           onChange={handleChange}
           min="0"
           disabled={isPets}
-          className={`w-full p-2 border rounded-md transition ${isPets ? "cursor-not-allowed" : ""}`}
+          className={`w-full p-2 border rounded-md transition ${
+            isPets ? "cursor-not-allowed" : ""
+          }`}
         />
 
         {/* Location */}
@@ -169,8 +182,12 @@ const AddListing = () => {
           onChange={handleChange}
           className="w-full p-2 border rounded-md transition"
         >
-          <option value="Available" className="text-black">Available</option>
-          <option value="Adopted" className="text-black">Adopted</option>
+          <option value="Available" className="text-black">
+            Available
+          </option>
+          <option value="Adopted" className="text-black">
+            Adopted
+          </option>
         </select>
 
         {/* Rating */}
@@ -180,12 +197,24 @@ const AddListing = () => {
           onChange={handleChange}
           className="w-full p-2 border rounded-md transition"
         >
-          <option value={0} className="text-black">No Rating</option>
-          <option value={1} className="text-black">⭐</option>
-          <option value={2} className="text-black">⭐⭐</option>
-          <option value={3} className="text-black">⭐⭐⭐</option>
-          <option value={4} className="text-black">⭐⭐⭐⭐</option>
-          <option value={5} className="text-black">⭐⭐⭐⭐⭐</option>
+          <option value={0} className="text-black">
+            No Rating
+          </option>
+          <option value={1} className="text-black">
+            ⭐
+          </option>
+          <option value={2} className="text-black">
+            ⭐⭐
+          </option>
+          <option value={3} className="text-black">
+            ⭐⭐⭐
+          </option>
+          <option value={4} className="text-black">
+            ⭐⭐⭐⭐
+          </option>
+          <option value={5} className="text-black">
+            ⭐⭐⭐⭐⭐
+          </option>
         </select>
 
         {/* Description */}
@@ -197,7 +226,9 @@ const AddListing = () => {
           className="w-full p-2 border rounded-md transition"
           rows={3}
         />
-        <p className="text-xs text-gray-500 text-right">{formData.description.length} characters</p>
+        <p className="text-xs text-gray-500 text-right">
+          {formData.description.length} characters
+        </p>
 
         {/* Email */}
         <input

@@ -41,7 +41,7 @@ const RecentList = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:5000/stores-list?category=${encodeURIComponent(
+      `https://pawmart-server-three.vercel.app/stores-list?category=${encodeURIComponent(
         selectedCategory
       )}`
     )
@@ -114,7 +114,8 @@ const RecentList = () => {
           ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
           : stores.slice(0, 8).map((item) => {
               // Default values if API doesn't provide
-              const description = item.description ?? "No description available.";
+              const description =
+                item.description ?? "No description available.";
               const rating = item.rating ?? 4;
               const status = item.status ?? "Available";
 
@@ -160,14 +161,18 @@ const RecentList = () => {
                     </p>
 
                     {/* Status */}
-                    <p className="text-sm text-green-500 font-semibold">{status}</p>
+                    <p className="text-sm text-green-500 font-semibold">
+                      {status}
+                    </p>
 
                     {/* Rating */}
                     <div className="flex items-center gap-1">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <FaStar
                           key={i}
-                          className={i < rating ? "text-yellow-400" : "text-gray-300"}
+                          className={
+                            i < rating ? "text-yellow-400" : "text-gray-300"
+                          }
                         />
                       ))}
                     </div>
@@ -176,9 +181,9 @@ const RecentList = () => {
                     <button
                       onClick={() =>
                         navigate(
-                          `/${selectedCategory.toLowerCase().replace(/\s/g, "")}/${
-                            item._id
-                          }`
+                          `/${selectedCategory
+                            .toLowerCase()
+                            .replace(/\s/g, "")}/${item._id}`
                         )
                       }
                       className="mt-4 backdrop-blur-lg bg-gray-700 dark:bg-white/10 text-gray-200 dark:text-gray-200 text-base sm:text-lg font-semibold py-3 rounded-lg transition-transform transform hover:scale-105 cursor-pointer"

@@ -18,8 +18,8 @@ const EditListing = () => {
     image: "",
     date: "",
     email: user?.email || "",
-    status: "Available",  // ✅ added
-    rating: 0,            // ✅ added
+    status: "Available", // ✅ added
+    rating: 0, // ✅ added
   });
 
   const [isPets, setIsPets] = useState(true);
@@ -27,7 +27,7 @@ const EditListing = () => {
 
   // Fetch listing
   useEffect(() => {
-    fetch(`http://localhost:5000/stores/details/${id}`)
+    fetch(`https://pawmart-server-three.vercel.app/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -40,7 +40,7 @@ const EditListing = () => {
           date: data.date || "",
           email: data.email || user?.email || "",
           status: data.status || "Available", // ✅
-          rating: data.rating || 0,          // ✅
+          rating: data.rating || 0, // ✅
         });
         setLoading(false);
       })
@@ -72,11 +72,14 @@ const EditListing = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/stores/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `https://pawmart-server-three.vercel.app/stores/${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to update listing");
 

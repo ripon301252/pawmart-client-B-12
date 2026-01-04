@@ -15,7 +15,7 @@ const MyListings = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:5000/stores?email=${user.email}`
+        `https://pawmart-server-three.vercel.app/stores?email=${user.email}`
       );
       const data = await res.json();
       setListings(data);
@@ -43,7 +43,7 @@ const MyListings = () => {
 
     if (result.isConfirmed) {
       try {
-        await fetch(`http://localhost:5000/stores/${id}`, {
+        await fetch(`https://pawmart-server-three.vercel.app/stores/${id}`, {
           method: "DELETE",
         });
         setListings((prev) => prev.filter((item) => item._id !== id));

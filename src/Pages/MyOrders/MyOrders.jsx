@@ -15,7 +15,9 @@ const MyOrders = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:5000/myOrders?email=${user.email}`)
+    fetch(
+      `https://pawmart-server-three.vercel.app/myOrders?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -41,7 +43,7 @@ const MyOrders = () => {
 
     if (result.isConfirmed) {
       try {
-        await fetch(`http://localhost:5000/myOrders/${id}`, {
+        await fetch(`https://pawmart-server-three.vercel.app/myOrders/${id}`, {
           method: "DELETE",
         });
         setOrders((prev) => prev.filter((o) => o._id !== id));

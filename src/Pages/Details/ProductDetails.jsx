@@ -14,7 +14,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/stores/details/${id}`)
+    fetch(`https://pawmart-server-three.vercel.app/stores/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
