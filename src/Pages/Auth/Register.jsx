@@ -13,7 +13,6 @@ const Register = () => {
   const [nameerror, setNameError] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
 
   const handleSignup = (e) => {
     e.preventDefault();

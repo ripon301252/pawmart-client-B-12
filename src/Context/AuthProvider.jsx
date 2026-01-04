@@ -21,36 +21,39 @@ const AuthProvider = ({ children }) => {
   // create user
   const createUser = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password)
-     .finally(() => setLoading(false));
+    return createUserWithEmailAndPassword(auth, email, password).finally(() =>
+      setLoading(false)
+    );
   };
 
   // signIn/Login
   const signIn = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password)
-     .finally(() => setLoading(false));
+    return signInWithEmailAndPassword(auth, email, password).finally(() =>
+      setLoading(false)
+    );
   };
 
   // Google signin
   const popupGoogleSignin = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider)
-     .finally(() => setLoading(false));
+    return signInWithPopup(auth, googleProvider).finally(() =>
+      setLoading(false)
+    );
   };
 
   // update user
   const updateUser = (updateData) => {
     setLoading(true);
-    return updateProfile(auth.currentUser, updateData)
-     .finally(() => setLoading(false));
+    return updateProfile(auth.currentUser, updateData).finally(() =>
+      setLoading(false)
+    );
   };
 
   // signOut/LogOut
   const logOut = () => {
     setLoading(true);
-    return signOut(auth)
-     .finally(() => setLoading(false));
+    return signOut(auth).finally(() => setLoading(false));
   };
 
   // reset password
@@ -62,11 +65,12 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false); 
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
 
   // show loader while user data is loading
   if (loading) {
@@ -96,4 +100,3 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-

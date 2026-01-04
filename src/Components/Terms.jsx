@@ -64,7 +64,7 @@ const Terms = () => {
       <div className="mt-12 text-center md:text-left">
         <a
           href="/contact"
-          className="inline-block bg-[#5b46b1] hover:bg-[#6a55d8] text-white px-8 py-3 rounded-lg font-semibold shadow-lg transition-all duration-300"
+          className="inline-block bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg transition-all duration-300"
         >
           Need Help? Contact Us
         </a>

@@ -155,7 +155,7 @@ const MyListings = () => {
 
                 {/* Actions */}
                 <td className="px-5 py-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     {/* View Details */}
                     <Link
                       to={`/product-details/${listing._id}`}
