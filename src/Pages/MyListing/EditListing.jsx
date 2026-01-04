@@ -102,7 +102,7 @@ const EditListing = () => {
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-8">
       <div className="flex justify-center items-center mb-6">
-        <h2 className="text-4xl sm:text-4xl font-bold  text-white dark:text-gray-100">
+        <h2 className="text-4xl sm:text-4xl font-bold  text-gray-700 dark:text-gray-200">
           🐾
           <Typewriter
             words={[" Edit Listing"]}
@@ -118,7 +118,7 @@ const EditListing = () => {
 
       <form
         onSubmit={handleUpdate}
-        className="flex flex-col gap-4 bg-white backdrop-blur-lg bg-white/10 p-6 sm:p-8 rounded-2xl shadow-lg"
+        className="flex flex-col gap-4 backdrop-blur-lg bg-white/10 p-6 sm:p-8 rounded-2xl shadow-lg"
       >
         <input
           type="text"
@@ -134,7 +134,7 @@ const EditListing = () => {
           name="category"
           value={formData.category}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg text-white focus:outline-none focus:ring-2  focus:ring-[#5633e4] backdrop-blur-lg bg-white/10 dark:border-gray-100 transition"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] backdrop-blur-lg bg-white/10 dark:border-gray-100 transition"
         >
           <option className="text-black">Pets</option>
           <option className="text-black">Pet Food</option>
@@ -152,7 +152,7 @@ const EditListing = () => {
           disabled={isPets}
           className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] transition ${
             isPets
-              ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+              ? "bg-gray-100 dark:bg-white/10 cursor-not-allowed"
               : "backdrop-blur-lg bg-white/10 dark:border-gray-100"
           }`}
         />
@@ -199,10 +199,24 @@ const EditListing = () => {
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5633e4] backdrop-blur-lg bg-white/10 dark:border-gray-100 transition"
+          className="w-full p-3 border rounded-lg 
+             focus:outline-none focus:ring-2 focus:ring-[#5633e4]
+             bg-white text-black
+             dark:bg-white/20 dark:text-white
+             dark:border-gray-200 transition"
         >
-          <option value="Available">Available</option>
-          <option value="Adopted">Adopted</option>
+          <option
+            value="Available"
+            className="text-black dark:text-white bg-white dark:bg-gray-500"
+          >
+            Available
+          </option>
+          <option
+            value="Adopted"
+            className="text-black dark:text-white bg-white dark:bg-gray-500"
+          >
+            Adopted
+          </option>
         </select>
 
         {/* ✅ Rating */}

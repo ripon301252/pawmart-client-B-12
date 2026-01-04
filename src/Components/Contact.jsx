@@ -27,11 +27,11 @@ const Contact = () => {
       {/* Contact Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Email */}
-        <div className="flex flex-col items-center md:items-start bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
+        <div className="flex flex-col items-center bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
           <div className="text-3xl text-gray-700 mb-4">
             <FaEnvelope />
           </div>
-          <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
+          <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 ">
             Email
           </h3>
           <p className="text-gray-700 dark:text-gray-300">
@@ -40,7 +40,7 @@ const Contact = () => {
         </div>
 
         {/* Phone */}
-        <div className="flex flex-col items-center md:items-start bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
+        <div className="flex flex-col items-center bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
           <div className="text-3xl text-gray-700 mb-4">
             <FaPhone />
           </div>
@@ -51,7 +51,7 @@ const Contact = () => {
         </div>
 
         {/* Location */}
-        <div className="flex flex-col items-center md:items-start bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
+        <div className="flex flex-col items-center bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow duration-300 border border-gray-700">
           <div className="text-3xl text-gray-700 mb-4">
             <FaMapMarkerAlt />
           </div>

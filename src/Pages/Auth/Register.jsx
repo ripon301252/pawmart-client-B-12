@@ -76,25 +76,25 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center md:min-h-screen py-5 bg-white dark:bg-gray-800 px-4">
+    <div className="flex justify-center items-center md:min-h-screen py-5 bg-white dark:bg-gray-800 px-5">
       <title>PawMart - SignUp</title>
-      <div className="card w-full max-w-md backdrop-blur-lg bg-white/10 shadow-2xl rounded-2xl p-6 border border-gray-200">
-        <h1 className="text-3xl font-bold text-center mb-2 text-white">
+      <div className="card w-full max-w-md backdrop-blur-lg bg-white/10 shadow-2xl rounded-2xl p-6 border border-gray-700">
+        <h1 className="text-3xl font-bold text-center mb-2 text-gray-700 dark:text-gray-200">
           Create Account
         </h1>
-        <p className="text-center text-white mb-4">
-          Join <span className="font-semibold text-pink-600">PawMart</span>{" "}
+        <p className="text-center text-gray-700 dark:text-gray-200 mb-4">
+          Join <span className="font-semibold text-orange-600">PawMart</span>{" "}
           today!
         </p>
 
         <form onSubmit={handleSignup} className="space-y-3">
           {/* Name */}
           <div>
-            <label className="label-text text-white font-semibold">Name</label>
+            <label className="label-text text-gray-700 dark:text-gray-200 font-semibold">Name</label>
             <input
               type="text"
               name="name"
-              className="input input-bordered w-full text-white bg-white/20 "
+              className="input input-bordered w-full text-gray-700 dark:text-gray-200 bg-white/20 "
               placeholder="Your Name"
               required
             />
@@ -105,11 +105,11 @@ const Register = () => {
 
           {/* Photo URL */}
           <div>
-            <label className="label-text text-white font-semibold">Photo URL</label>
+            <label className="label-text text-gray-700 dark:text-gray-200 font-semibold">Photo URL</label>
             <input
               type="text"
               name="photo"
-              className="input input-bordered w-full text-white bg-white/20"
+              className="input input-bordered w-full text-gray-700 dark:text-gray-200 bg-white/20"
               placeholder="Your Photo URL"
               required
             />
@@ -117,11 +117,11 @@ const Register = () => {
 
           {/* Email */}
           <div>
-            <label className="label-text text-white font-semibold">Email</label>
+            <label className="label-text text-gray-700 dark:text-gray-200 font-semibold">Email</label>
             <input
               type="email"
               name="email"
-              className="input input-bordered w-full text-white bg-white/20"
+              className="input input-bordered w-full text-gray-700 dark:text-gray-200 bg-white/20"
               placeholder="Your Email"
               required
             />
@@ -129,18 +129,18 @@ const Register = () => {
 
           {/* Password */}
           <div>
-            <label className="label-text text-white font-semibold">Password</label>
+            <label className="label-text text-gray-700 dark:text-gray-200 font-semibold">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
-                className="input input-bordered w-full text-white bg-white/20"
+                className="input input-bordered w-full text-gray-700 dark:text-gray-200 bg-white/20"
                 placeholder="Password"
                 required
               />
               <button
                 onClick={handleTogglePasswordShow}
-                className="absolute right-3 top-2.5 text-2xl text-pink-500 cursor-pointer"
+                className="absolute right-3 top-2.5 text-2xl text-blue-500 cursor-pointer"
               >
                 {showPassword ? <IoEyeOff /> : <IoEye />}
               </button>
@@ -150,7 +150,7 @@ const Register = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold w-full mt-4 hover:opacity-90 hover:scale-105 transition-transform border-none shadow-none"
+            className="btn bg-blue-600 text-white  font-semibold w-full mt-4 hover:opacity-90 hover:scale-105 transition-transform border-none shadow-none"
           >
             Sign Up
           </button>
@@ -158,7 +158,7 @@ const Register = () => {
           {/* Divider */}
           <div className="flex items-center justify-center gap-2 my-2">
             <div className="h-px w-16 bg-gray-300"></div>
-            <span className="text-white text-sm">or</span>
+            <span className="text-gray-700 dark:text-gray-200 text-sm">or</span>
             <div className="h-px w-16 bg-gray-300"></div>
           </div>
 
@@ -187,11 +187,11 @@ const Register = () => {
             Continue with Google
           </button>
 
-          <p className="text-center mt-3 text-sm text-white">
+          <p className="text-center mt-3 text-sm text-gray-700 dark:text-gray-200">
             Already have an account? Please {" "}
             <Link
               to={`/signin`}
-              className="text-pink-600 hover:underline font-medium "
+              className="text-blue-600 hover:underline font-medium "
             >
               Sign In
             </Link>
